@@ -11,8 +11,6 @@
 		8199C940200E972600D08494 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199C93F200E972600D08494 /* ViewController.swift */; };
 		8199C945200E972600D08494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8199C944200E972600D08494 /* Assets.xcassets */; };
 		8199C948200E972600D08494 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8199C946200E972600D08494 /* LaunchScreen.storyboard */; };
-		8199C953200E972600D08494 /* Unit5GroupProjectOneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199C952200E972600D08494 /* Unit5GroupProjectOneTests.swift */; };
-		8199C95E200E972600D08494 /* Unit5GroupProjectOneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199C95D200E972600D08494 /* Unit5GroupProjectOneUITests.swift */; };
 		8199C96C200E9B8C00D08494 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8199C96B200E9B8C00D08494 /* README.md */; };
 /* End PBXBuildFile section */
 
@@ -41,11 +39,7 @@
 		8199C947200E972600D08494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8199C949200E972600D08494 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8199C94E200E972600D08494 /* Unit5GroupProjectOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Unit5GroupProjectOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8199C952200E972600D08494 /* Unit5GroupProjectOneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit5GroupProjectOneTests.swift; sourceTree = "<group>"; };
-		8199C954200E972600D08494 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8199C959200E972600D08494 /* Unit5GroupProjectOneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Unit5GroupProjectOneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8199C95D200E972600D08494 /* Unit5GroupProjectOneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit5GroupProjectOneUITests.swift; sourceTree = "<group>"; };
-		8199C95F200E972600D08494 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8199C96B200E9B8C00D08494 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,8 +73,6 @@
 			children = (
 				8199C96B200E9B8C00D08494 /* README.md */,
 				8199C93C200E972600D08494 /* Unit5GroupProjectOne */,
-				8199C951200E972600D08494 /* Unit5GroupProjectOneTests */,
-				8199C95C200E972600D08494 /* Unit5GroupProjectOneUITests */,
 				8199C93B200E972600D08494 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,24 +97,6 @@
 				8199C949200E972600D08494 /* Info.plist */,
 			);
 			path = Unit5GroupProjectOne;
-			sourceTree = "<group>";
-		};
-		8199C951200E972600D08494 /* Unit5GroupProjectOneTests */ = {
-			isa = PBXGroup;
-			children = (
-				8199C952200E972600D08494 /* Unit5GroupProjectOneTests.swift */,
-				8199C954200E972600D08494 /* Info.plist */,
-			);
-			path = Unit5GroupProjectOneTests;
-			sourceTree = "<group>";
-		};
-		8199C95C200E972600D08494 /* Unit5GroupProjectOneUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8199C95D200E972600D08494 /* Unit5GroupProjectOneUITests.swift */,
-				8199C95F200E972600D08494 /* Info.plist */,
-			);
-			path = Unit5GroupProjectOneUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,7 +242,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8199C953200E972600D08494 /* Unit5GroupProjectOneTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +249,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8199C95E200E972600D08494 /* Unit5GroupProjectOneUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

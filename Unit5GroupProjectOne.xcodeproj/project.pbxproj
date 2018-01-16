@@ -14,6 +14,7 @@
 		8199C96C200E9B8C00D08494 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8199C96B200E9B8C00D08494 /* README.md */; };
 		8199C96F200EA3B600D08494 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199C96E200EA3B600D08494 /* TabBarController.swift */; };
 		8199C971200EA4D100D08494 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199C970200EA4D100D08494 /* FavoriteViewController.swift */; };
+		8199C974200EB19B00D08494 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199C973200EB19B00D08494 /* NetworkHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		8199C96B200E9B8C00D08494 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8199C96E200EA3B600D08494 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8199C970200EA4D100D08494 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		8199C973200EB19B00D08494 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				8199C93D200E972600D08494 /* AppDelegate.swift */,
+				8199C973200EB19B00D08494 /* NetworkHelper.swift */,
 				8199C96D200EA35A00D08494 /* Supporting Files */,
 				8199C972200EA4D600D08494 /* ViewControllers */,
 				8199C949200E972600D08494 /* Info.plist */,
@@ -257,6 +260,7 @@
 			files = (
 				8199C96F200EA3B600D08494 /* TabBarController.swift in Sources */,
 				8199C940200E972600D08494 /* SearchViewController.swift in Sources */,
+				8199C974200EB19B00D08494 /* NetworkHelper.swift in Sources */,
 				8199C971200EA4D100D08494 /* FavoriteViewController.swift in Sources */,
 				8199C93E200E972600D08494 /* AppDelegate.swift in Sources */,
 			);

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D6300FC5B6863022BC1BA19 /* Pods_Unit5GroupProjectOneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C02BAFE83431BA7DACA0E8 /* Pods_Unit5GroupProjectOneUITests.framework */; };
+		8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE452012BA9E00FAFEC2 /* SearchView.swift */; };
 		8149FC252011966B0012F10F /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC242011966B0012F10F /* FavoriteViewController.swift */; };
 		8149FC27201196850012F10F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC26201196850012F10F /* SearchViewController.swift */; };
 		8149FC29201196E30012F10F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC28201196E30012F10F /* TabBarController.swift */; };
@@ -43,6 +44,7 @@
 		3D7086FA285EF24C619F8FCA /* Pods-Unit5GroupProjectOneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOneTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOneTests/Pods-Unit5GroupProjectOneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58D604788D9F19E606E9B188 /* Pods-Unit5GroupProjectOneUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOneUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOneUITests/Pods-Unit5GroupProjectOneUITests.release.xcconfig"; sourceTree = "<group>"; };
 		68AD8744A1ABC398D6F600FA /* Pods-Unit5GroupProjectOneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOneUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOneUITests/Pods-Unit5GroupProjectOneUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8138AE452012BA9E00FAFEC2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8149FC242011966B0012F10F /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		8149FC26201196850012F10F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8149FC28201196E30012F10F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8138AE472012BAA700FAFEC2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8138AE452012BA9E00FAFEC2 /* SearchView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8149FC23201196480012F10F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +153,7 @@
 		8199C93C200E972600D08494 /* Unit5GroupProjectOne */ = {
 			isa = PBXGroup;
 			children = (
+				8138AE472012BAA700FAFEC2 /* Views */,
 				8149FC23201196480012F10F /* View Controllers */,
 				8199C944200E972600D08494 /* Assets.xcassets */,
 				8199C949200E972600D08494 /* Info.plist */,
@@ -460,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */,
 				8149FC27201196850012F10F /* SearchViewController.swift in Sources */,
 				8149FC29201196E30012F10F /* TabBarController.swift in Sources */,
 				8149FC252011966B0012F10F /* FavoriteViewController.swift in Sources */,

@@ -18,11 +18,11 @@ class TabBarController: UITabBarController {
         ///SearchVC
         let searchNavigation = UINavigationController(rootViewController: SearchViewController())
         ///FavoriteVC
-        let favoriteVC = FavoriteViewController()
+        let favoriteNavigation = UINavigationController(rootViewController: FavoriteCollectionViewController())
         
         searchNavigation.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "search icon"), tag: 0)
-        favoriteVC.tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "favorite icon"), tag: 1)
-        let tabList = [searchNavigation, favoriteVC]
+        favoriteNavigation.tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "collection icon"), tag: 1)
+        let tabList = [searchNavigation, favoriteNavigation]
         viewControllers = tabList
     }
 

@@ -7,19 +7,27 @@
 //
 
 import UIKit
+import SnapKit
+import MapKit
 
 class SearchViewController: UIViewController {
+    
+    let someView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        constrainView()
+        
+    }
+    
+    private func constrainView() {
+        view.addSubview(someView)
+        someView.backgroundColor = .cyan
+        someView.snp.makeConstraints { (view) in
+            view.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
 
 }

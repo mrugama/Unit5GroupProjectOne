@@ -17,7 +17,6 @@
 		8199C945200E972600D08494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8199C944200E972600D08494 /* Assets.xcassets */; };
 		8199C948200E972600D08494 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8199C946200E972600D08494 /* LaunchScreen.storyboard */; };
 		8199C96C200E9B8C00D08494 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8199C96B200E9B8C00D08494 /* README.md */; };
-		819CDDBE2012B76E0011979F /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819CDDBD2012B76E0011979F /* PhotoModel.swift */; };
 		9D9C137281E31C426FC97936 /* Pods_Unit5GroupProjectOne.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43CDE3909428D690169B17A /* Pods_Unit5GroupProjectOne.framework */; };
 		FD95B3D574622241449D6482 /* Pods_Unit5GroupProjectOneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1076C3BB2F5C6CDECE456DF1 /* Pods_Unit5GroupProjectOneTests.framework */; };
 /* End PBXBuildFile section */
@@ -58,7 +57,6 @@
 		8199C94E200E972600D08494 /* Unit5GroupProjectOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Unit5GroupProjectOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8199C959200E972600D08494 /* Unit5GroupProjectOneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Unit5GroupProjectOneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8199C96B200E9B8C00D08494 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		819CDDBD2012B76E0011979F /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		96C503F7B05DB0D647192593 /* Pods-Unit5GroupProjectOne.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOne.release.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOne/Pods-Unit5GroupProjectOne.release.xcconfig"; sourceTree = "<group>"; };
 		BB5D2804F944A2F925DC417F /* Pods-Unit5GroupProjectOne.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOne.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOne/Pods-Unit5GroupProjectOne.debug.xcconfig"; sourceTree = "<group>"; };
 		C43CDE3909428D690169B17A /* Pods_Unit5GroupProjectOne.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unit5GroupProjectOne.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,25 +153,13 @@
 		8199C93C200E972600D08494 /* Unit5GroupProjectOne */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				8138AE472012BAA700FAFEC2 /* Views */,
-=======
-				819CDDBC2012B7630011979F /* Models */,
->>>>>>> ac021e4fbbbf8af727cb9917303b6f9990a44de3
 				8149FC23201196480012F10F /* View Controllers */,
 				8199C944200E972600D08494 /* Assets.xcassets */,
 				8199C949200E972600D08494 /* Info.plist */,
 				8149FC2A2011A6300012F10F /* Supporting Files */,
 			);
 			path = Unit5GroupProjectOne;
-			sourceTree = "<group>";
-		};
-		819CDDBC2012B7630011979F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				819CDDBD2012B76E0011979F /* PhotoModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		98F059018EAA9D272156E07E /* Pods */ = {
@@ -489,7 +475,6 @@
 				8149FC27201196850012F10F /* SearchViewController.swift in Sources */,
 				8149FC29201196E30012F10F /* TabBarController.swift in Sources */,
 				8149FC252011966B0012F10F /* FavoriteViewController.swift in Sources */,
-				819CDDBE2012B76E0011979F /* PhotoModel.swift in Sources */,
 				8199C93E200E972600D08494 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

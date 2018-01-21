@@ -26,6 +26,8 @@
 		81CC34D02012E53200E7C45A /* AddCreateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34CF2012E53200E7C45A /* AddCreateCollectionViewCell.swift */; };
 		81CC34D32012F12900E7C45A /* VenueDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34D22012F12900E7C45A /* VenueDetailedView.swift */; };
 		81CC34D52012F7B000E7C45A /* VenueDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34D42012F7B000E7C45A /* VenueDetailedViewController.swift */; };
+		81CC34D7201545ED00E7C45A /* VenueTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34D6201545ED00E7C45A /* VenueTipsView.swift */; };
+		81CC34D92015478100E7C45A /* CreateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34D82015478100E7C45A /* CreateCollectionView.swift */; };
 		81E26D3A2014DF9800CAB37D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D392014DF9700CAB37D /* VenueModel.swift */; };
 		9D9C137281E31C426FC97936 /* Pods_Unit5GroupProjectOne.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43CDE3909428D690169B17A /* Pods_Unit5GroupProjectOne.framework */; };
 		FD95B3D574622241449D6482 /* Pods_Unit5GroupProjectOneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1076C3BB2F5C6CDECE456DF1 /* Pods_Unit5GroupProjectOneTests.framework */; };
@@ -76,6 +78,8 @@
 		81CC34CF2012E53200E7C45A /* AddCreateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCreateCollectionViewCell.swift; sourceTree = "<group>"; };
 		81CC34D22012F12900E7C45A /* VenueDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailedView.swift; sourceTree = "<group>"; };
 		81CC34D42012F7B000E7C45A /* VenueDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailedViewController.swift; sourceTree = "<group>"; };
+		81CC34D6201545ED00E7C45A /* VenueTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueTipsView.swift; sourceTree = "<group>"; };
+		81CC34D82015478100E7C45A /* CreateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionView.swift; sourceTree = "<group>"; };
 		81E26D392014DF9700CAB37D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		96C503F7B05DB0D647192593 /* Pods-Unit5GroupProjectOne.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOne.release.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOne/Pods-Unit5GroupProjectOne.release.xcconfig"; sourceTree = "<group>"; };
 		BB5D2804F944A2F925DC417F /* Pods-Unit5GroupProjectOne.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOne.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOne/Pods-Unit5GroupProjectOne.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 				8138AE452012BA9E00FAFEC2 /* SearchView.swift */,
 				81CC34C52012D20B00E7C45A /* CollectionView.swift */,
 				81CC34D22012F12900E7C45A /* VenueDetailedView.swift */,
+				81CC34D6201545ED00E7C45A /* VenueTipsView.swift */,
+				81CC34D82015478100E7C45A /* CreateCollectionView.swift */,
 				81CC34D12012F10800E7C45A /* Cells */,
 			);
 			path = Views;
@@ -525,7 +531,9 @@
 				8149FC29201196E30012F10F /* TabBarController.swift in Sources */,
 				81CC34D52012F7B000E7C45A /* VenueDetailedViewController.swift in Sources */,
 				8149FC252011966B0012F10F /* FavoriteCollectionViewController.swift in Sources */,
+				81CC34D92015478100E7C45A /* CreateCollectionView.swift in Sources */,
 				81CC34D32012F12900E7C45A /* VenueDetailedView.swift in Sources */,
+				81CC34D7201545ED00E7C45A /* VenueTipsView.swift in Sources */,
 				81CC34C62012D20B00E7C45A /* CollectionView.swift in Sources */,
 				81CC34D02012E53200E7C45A /* AddCreateCollectionViewCell.swift in Sources */,
 				8199C93E200E972600D08494 /* AppDelegate.swift in Sources */,

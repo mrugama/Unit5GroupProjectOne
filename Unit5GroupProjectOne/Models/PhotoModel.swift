@@ -8,9 +8,12 @@
 
 import Foundation
 
-struct allPhotos: Codable {
-    var photo: Photo
-    
+struct AllPhotos: Codable {
+    let response: Response
+}
+
+struct Response: Codable {
+    let photo: Photo
 }
 
 struct Photo: Codable {

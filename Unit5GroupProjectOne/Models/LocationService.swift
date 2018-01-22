@@ -37,9 +37,8 @@ class LocationService: NSObject {
 
 //MARK: - Helper Functions
 extension LocationService {
-    
-    //should be called in the view controller every view did appear, so we can present the right alerts
-    public func checkAuthorizationStatusAndLocationServices() -> (authorizationStatus: CLAuthorizationStatus, locationServicesOn: Bool) {
+
+    public func checkAuthorizationStatusAndLocationServices() -> (authorizationStatus: CLAuthorizationStatus, locationServicesEnabled: Bool) {
         
         if !CLLocationManager.locationServicesEnabled() {
             return (CLLocationManager.authorizationStatus(), false)
@@ -49,12 +48,11 @@ extension LocationService {
             switch CLLocationManager.authorizationStatus() {
             case .authorizedWhenInUse, .authorizedAlways:
                 status = CLLocationManager.authorizationStatus()
-                locationManager.stopUpdatingLocation()
+                locationManager.startUpdatingLocation()
             case .notDetermined:
                 status = .notDetermined
                 locationManager.requestWhenInUseAuthorization()
             case .denied:
-            //to do - ask them to turn on location services? direct them to settings app lol
                 status = .denied
                 locationManager.stopUpdatingLocation()
             case .restricted:
@@ -87,6 +85,7 @@ extension LocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first
         
+        print(location)
         //to do:
             //set up user preferences
             //save the location in user preferences as the last known current location

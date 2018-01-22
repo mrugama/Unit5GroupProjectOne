@@ -31,8 +31,6 @@ class VenueTableViewCell: UITableViewCell {
         label.font.withSize(15)
         return label
     }()
-        //set up properties
-        //set up 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "VenueListCell")
         commonInit()
@@ -50,7 +48,7 @@ class VenueTableViewCell: UITableViewCell {
         viewObjects.forEach{addSubview($0)}
         
         venueImage.snp.makeConstraints { (image) in
-            image.height.width.equalTo(120)
+            image.height.width.equalTo(90)
             image.top.leading.equalTo(5)
         }
         venueName.snp.makeConstraints { (label) in

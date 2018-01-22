@@ -20,6 +20,8 @@
 		8199C945200E972600D08494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8199C944200E972600D08494 /* Assets.xcassets */; };
 		8199C948200E972600D08494 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8199C946200E972600D08494 /* LaunchScreen.storyboard */; };
 		8199C96C200E9B8C00D08494 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8199C96B200E9B8C00D08494 /* README.md */; };
+		81B74FC42016A08700EDD15C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B74FC32016A08700EDD15C /* ImageCache.swift */; };
+		81B74FC62016A09C00EDD15C /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B74FC52016A09C00EDD15C /* UserPreferences.swift */; };
 		81CC34C42012CE3100E7C45A /* VenueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34C32012CE3100E7C45A /* VenueListViewController.swift */; };
 		81CC34C62012D20B00E7C45A /* VenueCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34C52012D20B00E7C45A /* VenueCollectionView.swift */; };
 		81CC34C82012DD0500E7C45A /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CC34C72012DD0500E7C45A /* SearchCollectionViewCell.swift */; };
@@ -78,6 +80,8 @@
 		8199C94E200E972600D08494 /* Unit5GroupProjectOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Unit5GroupProjectOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8199C959200E972600D08494 /* Unit5GroupProjectOneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Unit5GroupProjectOneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8199C96B200E9B8C00D08494 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		81B74FC32016A08700EDD15C /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		81B74FC52016A09C00EDD15C /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		81CC34C32012CE3100E7C45A /* VenueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueListViewController.swift; sourceTree = "<group>"; };
 		81CC34C52012D20B00E7C45A /* VenueCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueCollectionView.swift; sourceTree = "<group>"; };
 		81CC34C72012DD0500E7C45A /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 				81E26D3B20150BB900CAB37D /* VenueAPIClient.swift */,
 				8177AFBB20169D0B0024C5E5 /* PhotoAPIClient.swift */,
 				81CC34DA20154E2C00E7C45A /* LocationService.swift */,
+				81B74FC22016A06500EDD15C /* Data Persistence */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,6 +224,15 @@
 				8149FC2A2011A6300012F10F /* Supporting Files */,
 			);
 			path = Unit5GroupProjectOne;
+			sourceTree = "<group>";
+		};
+		81B74FC22016A06500EDD15C /* Data Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				81B74FC32016A08700EDD15C /* ImageCache.swift */,
+				81B74FC52016A09C00EDD15C /* UserPreferences.swift */,
+			);
+			path = "Data Persistence";
 			sourceTree = "<group>";
 		};
 		81CC34D12012F10800E7C45A /* Cells */ = {
@@ -541,6 +555,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81B74FC62016A09C00EDD15C /* UserPreferences.swift in Sources */,
 				8138AE4A2012CABE00FAFEC2 /* PhotoModel.swift in Sources */,
 				81CC34C42012CE3100E7C45A /* VenueListViewController.swift in Sources */,
 				8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */,
@@ -559,6 +574,7 @@
 				81CC34D02012E53200E7C45A /* AddCreateCollectionViewCell.swift in Sources */,
 				81E26D3C20150BB900CAB37D /* VenueAPIClient.swift in Sources */,
 				8177AFBC20169D0B0024C5E5 /* PhotoAPIClient.swift in Sources */,
+				81B74FC42016A08700EDD15C /* ImageCache.swift in Sources */,
 				8199C93E200E972600D08494 /* AppDelegate.swift in Sources */,
 				81E26D3A2014DF9800CAB37D /* VenueModel.swift in Sources */,
 				81CC34C82012DD0500E7C45A /* SearchCollectionViewCell.swift in Sources */,

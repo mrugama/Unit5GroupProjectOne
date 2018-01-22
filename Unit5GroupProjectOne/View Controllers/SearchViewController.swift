@@ -21,6 +21,14 @@ class SearchViewController: UIViewController {
         constrainView()
         delegateAndDataSource()
         configureNavBar()
+        setUpLocationServices()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let _ = LocationService.manager.checkAuthorizationStatusAndLocationServices()
     }
     
     private func configureNavBar() {
@@ -42,6 +50,8 @@ class SearchViewController: UIViewController {
         searchView.locationSearchBar.delegate = self
         searchView.venueCollectionView.delegate = self
         searchView.venueCollectionView.dataSource = self
+        LocationService.manager.delegate = self
+        
     }
     private func constrainView() {
         view.addSubview(searchView)
@@ -50,8 +60,72 @@ class SearchViewController: UIViewController {
             view.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
+    
+    private func setUpLocationServices() {
+        let locationService = LocationService.manager.checkAuthorizationStatusAndLocationServices()
+        
+        if locationService.locationServicesEnabled {
+            switch locationService.authorizationStatus {
+            case .denied:
+                presentSettingsAlertController(withTitle: "Location Services Not Enabled", andMessage: "Please enable Location Services in Settings for better search results.")
+            case .restricted:
+                let alertController = UIAlertController(title: "Warning", message: "This app is not authorized to use location services.", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                
+                alertController.addAction(alertAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+            default:
+                break
+            }
+        }
+        
+    }
+    
+    private func presentSettingsAlertController(withTitle title: String?, andMessage message: String?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: { (_) in
+            
+            guard let settingsURL = URL(string: UIApplicationOpenSettingsURLString) else {
+                return
+            }
+            
+            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
+//MARK: - Location Service Delegate Methods
+extension SearchViewController: LocationServiceDelegate {
+    
+    func locationServiceAuthorizationStatusChanged(toStatus status: CLAuthorizationStatus) {
+        print(status)
+    }
+    
+    func userLocationUpdateFailed(withError error: Error) {
+        print(error)
+        
+        presentSettingsAlertController(withTitle: "Could Not Get User Location", andMessage: "Please enable Location Services in Settings.")
+    }
+    
+}
+
+//MARK: - Map View Delegate Methods
+//should have a map manager or something? need a map delegate!!
+//should check the map view's view that is return for each annotation!
+
+
+//MARK: - Collection View Delegate Flow Layout Methods
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -77,6 +151,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
+//MARK: - Collection View Delegate and Data Source Methods
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10 //to do: change when we have a working datasource variable!!
@@ -89,6 +164,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
 }
+
+//tapping search should get the list of venues, and changing the list of venues
 extension SearchViewController: UISearchBarDelegate {
     
 }

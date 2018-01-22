@@ -24,15 +24,11 @@
 
 import Foundation
 
-struct SearchVenue: Codable {
-    let searchVenue: InfoVenue?
-    
-    enum CodingKeys: String, CodingKey {
-        case searchVenue = "response"
-    }
+struct AllVenue: Codable {
+    let responseVenue: ResponseVenue
 }
 
-struct InfoVenue: Codable {
+struct ResponseVenue: Codable {
     let venues: [Venue]
 }
 
@@ -45,28 +41,28 @@ struct Venue: Codable {
 }
 
 struct Contact: Codable {
-    let phone: String
-    let formattedPhone: String
-    let twitter: String
-    let instagram: String
-    let facebook: String
-    let facebookUsername: String
-    let facebookName: String
+    let phone: String?
+    let formattedPhone: String?
+    let twitter: String?
+    let instagram: String?
+    let facebook: String?
+    let facebookUsername: String?
+    let facebookName: String?
 }
 
 struct Location: Codable {
-    let address: String
-    let crossStreet: String
+    let address: String?
+    let crossStreet: String?
     let lat: Double
     let lng: Double
     let distance: Double
-    let postalCode: String
+    let postalCode: String?
     let cc: String
-    let neighborhood: String
+    let neighborhood: String?
     let city: String
     let state: String
     let country: String
-    let formattedAddress: [String]
+    let formattedAddress: [String]?
 }
 
 struct Category: Codable {

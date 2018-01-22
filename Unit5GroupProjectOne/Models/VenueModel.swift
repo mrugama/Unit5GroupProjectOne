@@ -26,6 +26,10 @@ import Foundation
 
 struct AllVenue: Codable {
     let responseVenue: ResponseVenue
+   
+    enum CodingKeys: String, CodingKey {
+        case responseVenue = "response"
+    }
 }
 
 struct ResponseVenue: Codable {

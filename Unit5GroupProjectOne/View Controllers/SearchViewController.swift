@@ -15,7 +15,9 @@ class SearchViewController: UIViewController {
     private let cellSpacing: CGFloat = UIScreen.main.bounds.width * 0.02
     
     private let searchView = SearchView()
-
+    
+    private lazy var venueSearchBarController = UISearchController(searchResultsController: nil)
+    
     private var venues: [Venue] = [] {
         didSet {
             searchView.venueCollectionView.reloadData()
@@ -36,11 +38,11 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        constrainView()
-        delegateAndDataSource()
-        configureNavBar()
-        setUpLocationServices()
         
+        constrainView()
+        configureNavBar()
+        delegateAndDataSource()
+        setUpLocationServices()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,28 +51,38 @@ class SearchViewController: UIViewController {
         let _ = LocationService.manager.checkAuthorizationStatusAndLocationServices()
     }
     
+}
+
+//MARK: - Helper Functions
+extension SearchViewController {
+    
     private func configureNavBar() {
         //TODO: Edit title
         navigationItem.title = "Venue Search"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.searchController = UISearchController(searchResultsController: nil)
+        venueSearchBarController.searchBar.delegate = self
+        navigationItem.searchController = venueSearchBarController
+        navigationItem.searchController?.isActive = true
         navigationItem.searchController?.searchBar.placeholder = "Search for a venue"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "tableview icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(venueListButton))
     }
+    
     @objc private func venueListButton() {
         let modalVC = VenueListViewController() //to do: the initializer for this view controller should take in the current results (the data source variable) and pass them to this view controller, so it has a datasource variable for its own table view
         let navController = UINavigationController(rootViewController: modalVC)
         modalVC.view.backgroundColor = .white
         self.present(navController, animated: true, completion: nil)
     }
+    
     private func delegateAndDataSource() {
-//        searchView.venueSearchBar.delegate = self
+        navigationItem.searchController?.searchBar.delegate = self
         searchView.locationSearchBar.delegate = self
         searchView.venueCollectionView.delegate = self
         searchView.venueCollectionView.dataSource = self
         LocationService.manager.delegate = self
         
     }
+    
     private func constrainView() {
         view.addSubview(searchView)
         searchView.backgroundColor = .cyan
@@ -98,7 +110,6 @@ class SearchViewController: UIViewController {
                 break
             }
         }
-        
     }
     
     private func presentSettingsAlertController(withTitle title: String?, andMessage message: String?) {
@@ -121,24 +132,67 @@ class SearchViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    private func createAlertController(withTitle title: String?, andMessage message: String?) -> UIAlertController {
+    
+        return UIAlertController(title: title, message: message, preferredStyle: .alert)
+    }
+    
+    private func getVenues(fromSearchTerm searchTerm: String, latitude: Double, andLongitude longitude: Double) {
+        
+        //make sure to format search term!!
+        
+        //to do - update
+//        VenueAPIClient.manager.getVenue(from: searchTerm, lat: latitude, lon: longitude, completionHandler: { (venues) in
+//
+//            self.venues = venues
+//
+//        }, errorHandler: { (error) in
+//
+//
+//            //TODO: Present the alert
+//
+//        })
+//
+    }
+    
 }
 
 //MARK: - Location Service Delegate Methods
 extension SearchViewController: LocationServiceDelegate {
     
+    //Melissa to QA: Please check if this doesn't make the alert pop up too often! Thanks!!
     func locationServiceAuthorizationStatusChanged(toStatus status: CLAuthorizationStatus) {
         print(status)
+        
+        switch status {
+        case .denied:
+            if self.presentedViewController == nil {
+                presentSettingsAlertController(withTitle: "Location Services Not Enabled", andMessage: "Please enable Location Services in Settings for better search results.")
+            }
+        case .restricted:
+            let alertController = UIAlertController(title: "Warning", message: "This app is not authorized to use location services.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            
+            alertController.addAction(alertAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        default:
+            break
+        }
+        
     }
     
     func userLocationUpdateFailed(withError error: Error) {
         print(error)
         
-        presentSettingsAlertController(withTitle: "Could Not Get User Location", andMessage: "Please enable Location Services in Settings.")
+        presentSettingsAlertController(withTitle: "Could Not Get User Location", andMessage: "Please enable Location Services in Settings or check network connectivity.")
     }
     
 }
 
 //MARK: - Map View Delegate Methods
+//TODO: Make Map View Delegate Methods
 //should have a map manager or something? need a map delegate!!
 //should check the map view's view that is return for each annotation!
 
@@ -183,7 +237,60 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 }
 
-//tapping search should get the list of venues, and changing the list of venues
+//TODO: Finish Search Bar Delegate
+    //tapping search should get the list of venues, and changing the list of venues
 extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        //probably should set up user preferences to save last search and last location (lol)
+        
+        guard
+            let venueSearchText = venueSearchBarController.searchBar.text,
+            !venueSearchText.isEmpty,
+            let formattedVenueSearchText = venueSearchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+            else {
+
+            return
+        }
+        
+        guard
+            let locationSearchText = searchView.locationSearchBar.text,
+            !locationSearchText.isEmpty
+            else {
+            
+                let locationService = LocationService.manager.checkAuthorizationStatusAndLocationServices()
+                
+                //if location services is enabled - do search
+                if locationService.locationServicesEnabled && (locationService.authorizationStatus == .authorizedAlways || locationService.authorizationStatus == .authorizedWhenInUse) {
+                    //if user location access is allowed
+                    
+                    //do search
+                    
+                } else {
+                    //if location services is not enabled - present alert controller
+                    
+                }
+            
+            return
+        }
+        
+        //if user enters location
+        LocationService.manager.getLatAndLong(fromLocation: locationSearchText) { (error, coordinate) in
+        
+            if let error = error {
+                //present alert that says could not get coordinates from user inputted location
+                return
+            }
+            
+            if let coordinate = coordinate {
+                
+                self.getVenues(fromSearchTerm: formattedVenueSearchText, latitude: coordinate.latitude, andLongitude: coordinate.longitude)
+                
+            }
+            
+        }
+        
+    }
     
 }

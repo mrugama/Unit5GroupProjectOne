@@ -13,13 +13,17 @@ struct AllPhotos: Codable {
 }
 
 struct Response: Codable {
-    let photo: Photo
+    let photos: Photos
+}
+
+struct Photos: Codable {
+    let items: [Photo]
 }
 
 struct Photo: Codable {
-    var id: String
-    var prefix: String
-    var suffix: String
-    var width: Int
-    var hight: Int
+    let id: String
+    let prefix: String
+    let suffix: String
+    let width: Int
+    let height: Int
 }

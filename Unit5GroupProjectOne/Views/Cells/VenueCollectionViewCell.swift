@@ -13,7 +13,47 @@ import SnapKit
 
 class VenueCollectionViewCell: UICollectionViewCell {
     
-    //To do
+    lazy var venueCollectionImage: UIImageView = {
+        let image = UIImageView()
+        return image
+    }()
+    lazy var venueName: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        return label
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    private func commonInit() {
+        backgroundColor = .orange
+        setupViews()
+    }
+    private func setupViews() {
+        addSubview(venueCollectionImage)
+        addSubview(venueName)
+        
+        venueName.snp.makeConstraints { (label) in
+            label.height.equalTo(self.contentView.snp.height).multipliedBy(0.25)
+            label.bottom.leading.trailing.equalTo(self.contentView)
+        }
+        venueCollectionImage.snp.makeConstraints { (image) in
+            image.top.leading.trailing.equalTo(self.contentView)
+            image.bottom.equalTo(self.venueName.snp.top)
+        }
+        
+    }
+    
+    public func configureCell() {
+        venueName.text = "Aye we lit!"
+        venueCollectionImage.image = #imageLiteral(resourceName: "placeholder")
+    }
         //set up initializers
         //set up properties
         //set up constraints

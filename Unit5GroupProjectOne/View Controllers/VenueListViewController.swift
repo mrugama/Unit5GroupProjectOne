@@ -13,18 +13,58 @@ import SnapKit
 
 class VenueListViewController: UIViewController {
 
-    //to do
-        //create the table view
-        //register the cell using the custom table view cell (VenueTableViewCell) and a unique reuseidentifier
+    //TODO: get images
+    
         //no need for self-sizing cells, so please give a specific height for each row
         //set up delegate methods
         //in the did select delegate method, tapping a table view cell should segue to a
+    lazy var venueListTableView: UITableView = {
+        let tv = UITableView()
+        tv.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueListCell")
+        return tv
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        constrainTableView()
+        venueListTableView.dataSource = self
+        venueListTableView.delegate = self
+        configureNavigation()
+        venueListTableView.rowHeight = 97.5
         
     }
-
+    @objc func dismissView() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func constrainTableView() {
+        view.addSubview(venueListTableView)
+        venueListTableView.snp.makeConstraints { (view) in
+            view.top.bottom.trailing.leading.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
+    
+    private func configureNavigation() {
+        let venueNavigation = UINavigationController(rootViewController: VenueDetailedViewController())
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissView))
+    }
     
 }
+extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueListCell", for: indexPath)
+        //TODO: configure cell with data
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = VenueDetailedViewController()
+        navigationController?.pushViewController(detailVC, animated: true)
+        //TODO: setup segue to detailVC
+    }
+}
+

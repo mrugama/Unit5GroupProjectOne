@@ -15,8 +15,8 @@ class SearchViewController: UIViewController {
     private let cellSpacing: CGFloat = UIScreen.main.bounds.width * 0.02
     
     private let searchView = SearchView()
-
-    private let venueSearchController = UISearchController(searchResultsController: nil)
+    
+    private lazy var venueSearchBarController = UISearchController(searchResultsController: nil)
     
     private var venues: [Venue] = [] {
         didSet {
@@ -40,8 +40,8 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         constrainView()
-        delegateAndDataSource()
         configureNavBar()
+        delegateAndDataSource()
         setUpLocationServices()
     }
     
@@ -60,7 +60,9 @@ extension SearchViewController {
         //TODO: Edit title
         navigationItem.title = "Venue Search"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.searchController = self.venueSearchController
+        venueSearchBarController.searchBar.delegate = self
+        navigationItem.searchController = venueSearchBarController
+        navigationItem.searchController?.isActive = true
         navigationItem.searchController?.searchBar.placeholder = "Search for a venue"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "tableview icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(venueListButton))
     }
@@ -73,6 +75,7 @@ extension SearchViewController {
     }
     
     private func delegateAndDataSource() {
+        navigationItem.searchController?.searchBar.delegate = self
         searchView.locationSearchBar.delegate = self
         searchView.venueCollectionView.delegate = self
         searchView.venueCollectionView.dataSource = self
@@ -138,17 +141,18 @@ extension SearchViewController {
         
         //make sure to format search term!!
         
-        VenueAPIClient.manager.getVenue(from: searchTerm, lat: latitude, lon: longitude, completionHandler: { (venues) in
-        
-            self.venues = venues
-            
-        }, errorHandler: { (error) in
-        
-            
-            //TODO: Present the alert
-            
-        })
-        
+        //to do - update
+//        VenueAPIClient.manager.getVenue(from: searchTerm, lat: latitude, lon: longitude, completionHandler: { (venues) in
+//
+//            self.venues = venues
+//
+//        }, errorHandler: { (error) in
+//
+//
+//            //TODO: Present the alert
+//
+//        })
+//
     }
     
 }
@@ -162,7 +166,9 @@ extension SearchViewController: LocationServiceDelegate {
         
         switch status {
         case .denied:
-            presentSettingsAlertController(withTitle: "Location Services Not Enabled", andMessage: "Please enable Location Services in Settings for better search results.")
+            if self.presentedViewController == nil {
+                presentSettingsAlertController(withTitle: "Location Services Not Enabled", andMessage: "Please enable Location Services in Settings for better search results.")
+            }
         case .restricted:
             let alertController = UIAlertController(title: "Warning", message: "This app is not authorized to use location services.", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -231,7 +237,60 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 }
 
-//tapping search should get the list of venues, and changing the list of venues
+//TODO: Finish Search Bar Delegate
+    //tapping search should get the list of venues, and changing the list of venues
 extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        //probably should set up user preferences to save last search and last location (lol)
+        
+        guard
+            let venueSearchText = venueSearchBarController.searchBar.text,
+            !venueSearchText.isEmpty,
+            let formattedVenueSearchText = venueSearchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+            else {
+
+            return
+        }
+        
+        guard
+            let locationSearchText = searchView.locationSearchBar.text,
+            !locationSearchText.isEmpty
+            else {
+            
+                let locationService = LocationService.manager.checkAuthorizationStatusAndLocationServices()
+                
+                //if location services is enabled - do search
+                if locationService.locationServicesEnabled && (locationService.authorizationStatus == .authorizedAlways || locationService.authorizationStatus == .authorizedWhenInUse) {
+                    //if user location access is allowed
+                    
+                    //do search
+                    
+                } else {
+                    //if location services is not enabled - present alert controller
+                    
+                }
+            
+            return
+        }
+        
+        //if user enters location
+        LocationService.manager.getLatAndLong(fromLocation: locationSearchText) { (error, coordinate) in
+        
+            if let error = error {
+                //present alert that says could not get coordinates from user inputted location
+                return
+            }
+            
+            if let coordinate = coordinate {
+                
+                self.getVenues(fromSearchTerm: formattedVenueSearchText, latitude: coordinate.latitude, andLongitude: coordinate.longitude)
+                
+            }
+            
+        }
+        
+    }
     
 }

@@ -30,6 +30,7 @@ class VenueListViewController: UIViewController {
         venueListTableView.dataSource = self
         venueListTableView.delegate = self
         configureNavigation()
+        venueListTableView.rowHeight = 130
         
     }
     @objc func dismissView() {

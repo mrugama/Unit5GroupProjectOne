@@ -16,15 +16,16 @@ class SearchView: UIView {
         layout.scrollDirection = UICollectionViewScrollDirection.horizontal
         let cv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         cv.backgroundColor = .clear
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "SearchCollectionCell")
+        cv.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: "SearchCollectionCell")
         return cv
     }()
     
-    lazy var venueSearchBar: UISearchBar = {
-        let searchbar = UISearchBar()
-        searchbar.placeholder = "Search for a venue"
-        return searchbar
-    }()
+    //already made in the view controller
+//    lazy var venueSearchBar: UISearchBar = {
+//        let searchbar = UISearchBar()
+//        searchbar.placeholder = "Search for a venue"
+//        return searchbar
+//    }()
     
     lazy var locationSearchBar: UISearchBar = {
         let searchbar = UISearchBar()
@@ -57,7 +58,7 @@ class SearchView: UIView {
         setupViews()
     }
     private func setupViews() {
-        let viewObjects = [locationSearchBar, venueSearchBar, mapView, userTrackingButton, venueCollectionView] as [UIView]
+        let viewObjects = [locationSearchBar, mapView, userTrackingButton, venueCollectionView] as [UIView]
         viewObjects.forEach{addSubview($0)}
         
         locationSearchBar.snp.makeConstraints { (location) in
@@ -69,12 +70,12 @@ class SearchView: UIView {
             map.trailing.leading.bottom.equalTo(self)
         }
         venueCollectionView.snp.makeConstraints { (collection) in
-            collection.bottom.equalTo(self).offset(-10)
+            collection.bottom.equalTo(self).offset(-15)
             collection.trailing.leading.centerX.equalTo(self)
-            collection.height.equalTo(75)
+            collection.height.equalTo(self).multipliedBy(0.20)
         }
         userTrackingButton.snp.makeConstraints { (tracking) in
-            tracking.trailing.bottom.equalTo(self).offset(-16)
+            tracking.trailing.bottom.equalTo(self).offset(-20)
         }
     }
 

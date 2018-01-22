@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Using your current location will provide a better search experience and more accurate results.</string>
+	<string>Your current location will provide a better search experience and more accurate results.</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

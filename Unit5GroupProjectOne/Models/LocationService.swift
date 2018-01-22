@@ -39,7 +39,7 @@ class LocationService: NSObject {
 extension LocationService {
     
     //should be called in the view controller every view did appear, so we can present the right alerts
-    public func checkAuthorizationStatusAndLocationServices() -> (authorizationStatus: CLAuthorizationStatus, locationServicesOn: Bool) {
+    public func checkAuthorizationStatusAndLocationServices() -> (authorizationStatus: CLAuthorizationStatus, locationServicesEnabled: Bool) {
         
         if !CLLocationManager.locationServicesEnabled() {
             return (CLLocationManager.authorizationStatus(), false)

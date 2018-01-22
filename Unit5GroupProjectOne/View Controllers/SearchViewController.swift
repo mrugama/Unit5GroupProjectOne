@@ -16,6 +16,24 @@ class SearchViewController: UIViewController {
     
     private let searchView = SearchView()
 
+    private var venues: [Venue] = [] {
+        didSet {
+            searchView.venueCollectionView.reloadData()
+            
+            //should create a list of annotations from these venues
+            //should assign that list to self.annotations (replacing the old list!)
+            
+        }
+    }
+    
+    private var annotations: [MKAnnotation] = [] {
+        didSet {
+            //when this changes
+                //should remove the old pins from the map
+                //should replace the old pins in the map with new annotations!!
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainView()

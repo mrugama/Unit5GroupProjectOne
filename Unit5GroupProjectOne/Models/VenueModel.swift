@@ -25,7 +25,7 @@
 import Foundation
 
 struct SearchVenue: Codable {
-    let searchVenue: InfoVenue
+    let searchVenue: InfoVenue?
     
     enum CodingKeys: String, CodingKey {
         case searchVenue = "response"

@@ -33,6 +33,8 @@ class LocationService: NSObject {
     
     private var locationManager: CLLocationManager!
     
+    private var geocoder = CLGeocoder()
+    
 }
 
 //MARK: - Helper Functions
@@ -64,6 +66,36 @@ extension LocationService {
         }
         
     }
+    
+    public func getLatAndLong(fromLocation location: String, completionHandler: @escaping (Error?, (latitude: Double, longitude: Double)?) -> Void) {
+        
+        geocoder.geocodeAddressString(location) { (placemarks, error) in
+            
+            if let error = error {
+                completionHandler(error, nil)
+                return
+            }
+            
+            if let placemarks = placemarks {
+                let placemark = placemarks.first!
+                
+                guard let location = placemark.location else {
+                    completionHandler(error, nil)
+                    return
+                }
+                
+                completionHandler(nil, (latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            }
+            
+        }
+        
+    }
+    
+    //to avoid having to import core location in the view controller
+    public func locationServicesEnabled() -> Bool {
+        return CLLocationManager.locationServicesEnabled()
+    }
+    
 }
 
 //MARK: - Location Manager Delegate Methods

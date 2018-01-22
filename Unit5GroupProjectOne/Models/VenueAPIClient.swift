@@ -12,10 +12,12 @@ class VenueAPIClient {
     private init() {}
     static let manager = VenueAPIClient()
     private let keyAPI = "ZQSWSRCGU33XMP2KNS2BWUNUICV4JJQYQ2NJNUNRTT4SXEZT"
-    func getVenues(lat latitute: Double,
+    func getVenues(withSearchTerm searchTerm: String,
+                   lat latitude: Double,
                    lon longitude: Double,
-                   completion: @escaping ([Venue]?) -> Void) {
-        let urlWeather = "https://api.foursquare.com/v2/venues/search?ll=\(latitute),\(longitude)&oauth_token=\(keyAPI)&v=20180118"
+                   completion: @escaping ([Venue]) -> Void,
+                   errorHandler: @escaping (Error) -> Void) {
+        let urlWeather = "https://api.foursquare.com/v2/venues/search?query=\(searchTerm)ll=\(latitude),\(longitude)&oauth_token=\(keyAPI)&v=20180118"
         guard let url = URL(string: urlWeather) else {return}
         Alamofire.request(url).responseJSON{ response in
             switch response.result{

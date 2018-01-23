@@ -82,6 +82,8 @@ extension SearchViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         venueSearchBarController.searchBar.delegate = self
         navigationItem.searchController = venueSearchBarController
+        navigationItem.searchController?.dimsBackgroundDuringPresentation = false
+        navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController?.isActive = true
         navigationItem.searchController?.searchBar.placeholder = "Search for a venue"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "tableview icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(venueListButton))
@@ -369,6 +371,8 @@ extension SearchViewController: UISearchBarDelegate {
             }
             
         }
+        
+        searchBar.resignFirstResponder()
         
     }
     

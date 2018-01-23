@@ -41,7 +41,7 @@ class SearchView: UIView {
     }()
     
     lazy var userTrackingButton: MKUserTrackingButton = {
-        let trackingButton = MKUserTrackingButton()
+        let trackingButton = MKUserTrackingButton(mapView: mapView)
         return trackingButton
     }()
     

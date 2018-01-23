@@ -169,7 +169,7 @@ extension SearchViewController {
     
     private func getVenues(fromSearchTerm searchTerm: String, latitude: Double, andLongitude longitude: Double) {
         
-        VenueAPIClient.manager.getVenues(withSearchTerm: searchTerm, lat: latitude, lon: longitude, completion: { (venues) in
+        VenueAPIClient.manager.getVenues(lat: latitude, lon: longitude, search: searchTerm, completion: { (venues) in
             
             if venues.isEmpty {
                 print("It's empty!!!")
@@ -226,25 +226,17 @@ extension SearchViewController: LocationServiceDelegate {
     
     func userLocationUpdateFailed(withError error: Error) {
         print(error)
-        
         presentSettingsAlertController(withTitle: "Could Not Get User Location", andMessage: "Please enable Location Services in Settings or check network connectivity.")
     }
     
     func userLocationUpdatedToLocation(_ location: CLLocation) {
-        
         let userCoordinates = searchView.mapView.userLocation.coordinate
-        
         let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        
         searchView.mapView.showsUserLocation = true
-        
         let userRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), span: mapSpan)
-        
         searchView.mapView.setRegion(userRegion, animated: true)
-        
         //TODO: set the place holder everytime the current location changes!! - use the geocoder to find the actual place!
         //TODO: fix user tracking button
-        
     }
     
 }
@@ -285,6 +277,16 @@ extension SearchViewController: MKMapViewDelegate {
         
         annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         
+        //TODO: MELISSA CHANGE TO LIGHTER PUPRLE
+        annotationView?.markerTintColor = UIColor.purple
+
+        //TODO: NATE DO SHADOWS!!
+//        annotationView?.layer.shadowColor
+//        annotationView?.layer.shadowOffset
+//        annotationView?.layer.shadowRadius
+        
+        annotationView?.displayPriority = .required
+        
         return annotationView
     }
     
@@ -319,6 +321,24 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
 //MARK: - Collection View Delegate and Data Source Methods
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedAnnotation = annotations[indexPath.row]
+        
+        let center = CLLocationCoordinate2D(latitude: selectedAnnotation.coordinate.latitude, longitude: selectedAnnotation.coordinate.longitude)
+        
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        
+        let region = MKCoordinateRegion(center: center, span: span)
+        
+        searchView.mapView.setRegion(region, animated: true)
+        
+        searchView.mapView.selectAnnotation(selectedAnnotation, animated: true)
+        
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return venues.count
     }

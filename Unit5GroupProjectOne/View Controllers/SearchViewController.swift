@@ -25,6 +25,23 @@ class SearchViewController: UIViewController {
             //should create a list of annotations from these venues
             //should assign that list to self.annotations (replacing the old list!)
             
+            var annotations: [MKAnnotation] = []
+            
+            for venue in venues {
+                let annotation = MKPointAnnotation()
+                
+                annotation.coordinate = CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng)
+                
+                annotation.title = venue.name
+                annotation.subtitle = venue.categories.map{$0.shortName}.joined(separator: ", ")
+                
+                annotations.append(annotation)
+            }
+            
+            searchView.mapView.removeAnnotations(self.annotations)
+            
+            self.annotations = annotations
+            
         }
     }
     
@@ -33,6 +50,9 @@ class SearchViewController: UIViewController {
             //when this changes
                 //should remove the old pins from the map
                 //should replace the old pins in the map with new annotations!!
+            
+            searchView.mapView.addAnnotations(annotations)
+            searchView.mapView.showAnnotations(annotations, animated: true)
         }
     }
     
@@ -189,12 +209,33 @@ extension SearchViewController: LocationServiceDelegate {
         presentSettingsAlertController(withTitle: "Could Not Get User Location", andMessage: "Please enable Location Services in Settings or check network connectivity.")
     }
     
+    func userLocationUpdatedToLocation(_ location: CLLocation) {
+        
+        let userCoordinates = searchView.mapView.userLocation.coordinate
+        
+        let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        
+        searchView.mapView.showsUserLocation = true
+        
+        let userRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), span: mapSpan)
+        
+        searchView.mapView.setRegion(userRegion, animated: true)
+        
+        //TODO: set the place holder everytime the current location changes!! - use the geocoder to find the actual place!
+        //TODO: fix user tracking button
+        
+    }
+    
 }
 
 //MARK: - Map View Delegate Methods
 //TODO: Make Map View Delegate Methods
 //should have a map manager or something? need a map delegate!!
 //should check the map view's view that is return for each annotation!
+
+extension SearchViewController: MKMapViewDelegate {
+    //to do!!
+}
 
 
 //MARK: - Collection View Delegate Flow Layout Methods
@@ -226,12 +267,13 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - Collection View Delegate and Data Source Methods
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10 //to do: change when we have a working datasource variable!!
+        return venues.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionCell", for: indexPath) as! SearchCollectionViewCell
         cell.contentView.backgroundColor = .gray
+        
         return cell
     }
     

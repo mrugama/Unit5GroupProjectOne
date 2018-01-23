@@ -42,5 +42,11 @@ class SearchCollectionViewCell: UICollectionViewCell {
         //set up collection view properties and constraints
         //maybe add a "configure cell" function here that takes in some parameter and sets up the property for you, instead of having to do all that in the cellForItemAt datasource method in the view controller (to avoid cluttering the view controller, and having a cell that is more reusable)
 
+    public func configureCell(withVenue venue: Venue) {
+        //will use the photo api client - which should check for cache
+        
+        //TODO: set up image with photo api client - which should probably return
+        
+    }
     
 }

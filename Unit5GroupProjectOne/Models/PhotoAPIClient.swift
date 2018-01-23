@@ -11,24 +11,32 @@ import Alamofire
 class PhotoAPIClient {
     private init() {}
     static let manager = PhotoAPIClient()
-    private let keyAPI = "ZQSWSRCGU33XMP2KNS2BWUNUICV4JJQYQ2NJNUNRTT4SXEZT"
     func getPhotos(venue venueId: String,
                    completion: @escaping ([Photo]?) -> Void) {
-        let urlWeather = "https://api.foursquare.com/v2/venues/\(venueId)/photos?&oauth_token=\(keyAPI)&v=20180118"
-        guard let url = URL(string: urlWeather) else {return}
-        Alamofire.request(url).responseJSON{ response in
-            switch response.result{
+        let urlBase = "https://api.foursquare.com/v2/venues/\(venueId)/photos"
+        let dateFormatted = DateFormatter()
+        let date = Date()
+        dateFormatted.dateFormat = "yyyyMMdd"
+        let strDate = dateFormatted.string(from: date)
+        let params: [String: Any] = ["oauth_token": APIKeys.apiKey,
+                                     "limit": 10,
+                                     "v": strDate]
+        Alamofire.request(urlBase, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in
+            switch dataResponse.result {
+            case .failure(let error):
+                print("Response error: \(error.localizedDescription)")
             case .success:
-                if let data = response.data {
+                if let error = dataResponse.error {
+                    print("Network error: \(error.localizedDescription)")
+                } else if let data = dataResponse.data {
                     do {
-                        let result = try JSONDecoder().decode(AllPhotos.self, from: data)
-                        completion(result.response.photos.items)
-                    } catch let error {
-                        print("Error decoding: \(error.localizedDescription)")
+                        let decoder = JSONDecoder()
+                        let results = try decoder.decode(AllPhotos.self, from: data)
+                        completion(results.response.photos.items)
+                    } catch {
+                        print("Decoding error: \(error.localizedDescription)")
                     }
                 }
-            case .failure(let error):
-                print(error.localizedDescription)
             }
         }
     }

@@ -40,6 +40,8 @@
 		81E26D3C20150BB900CAB37D /* VenueAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D3B20150BB900CAB37D /* VenueAPIClient.swift */; };
 		81E26D3E20150CF200CAB37D /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D3D20150CF200CAB37D /* AppError.swift */; };
 		81E26D4020163ADA00CAB37D /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D3F20163ADA00CAB37D /* NetworkHelper.swift */; };
+		81ED55112017E8DD00977E5B /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ED55102017E8DD00977E5B /* FileManagerHelper.swift */; };
+		81ED55132017F30E00977E5B /* VenueTipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ED55122017F30E00977E5B /* VenueTipModel.swift */; };
 		9D9C137281E31C426FC97936 /* Pods_Unit5GroupProjectOne.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43CDE3909428D690169B17A /* Pods_Unit5GroupProjectOne.framework */; };
 		FD95B3D574622241449D6482 /* Pods_Unit5GroupProjectOneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1076C3BB2F5C6CDECE456DF1 /* Pods_Unit5GroupProjectOneTests.framework */; };
 /* End PBXBuildFile section */
@@ -103,6 +105,8 @@
 		81E26D3B20150BB900CAB37D /* VenueAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAPIClient.swift; sourceTree = "<group>"; };
 		81E26D3D20150CF200CAB37D /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		81E26D3F20163ADA00CAB37D /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		81ED55102017E8DD00977E5B /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
+		81ED55122017F30E00977E5B /* VenueTipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueTipModel.swift; sourceTree = "<group>"; };
 		96C503F7B05DB0D647192593 /* Pods-Unit5GroupProjectOne.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOne.release.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOne/Pods-Unit5GroupProjectOne.release.xcconfig"; sourceTree = "<group>"; };
 		BB5D2804F944A2F925DC417F /* Pods-Unit5GroupProjectOne.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unit5GroupProjectOne.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Unit5GroupProjectOne/Pods-Unit5GroupProjectOne.debug.xcconfig"; sourceTree = "<group>"; };
 		C43CDE3909428D690169B17A /* Pods_Unit5GroupProjectOne.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unit5GroupProjectOne.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +172,7 @@
 				81E26D3F20163ADA00CAB37D /* NetworkHelper.swift */,
 				81E26D392014DF9700CAB37D /* VenueModel.swift */,
 				8138AE492012CABE00FAFEC2 /* PhotoModel.swift */,
+				81ED55122017F30E00977E5B /* VenueTipModel.swift */,
 				81E26D3B20150BB900CAB37D /* VenueAPIClient.swift */,
 				8177AFBB20169D0B0024C5E5 /* PhotoAPIClient.swift */,
 				81CC34DA20154E2C00E7C45A /* LocationService.swift */,
@@ -239,6 +244,7 @@
 			children = (
 				81B74FC32016A08700EDD15C /* ImageCache.swift */,
 				81B74FC52016A09C00EDD15C /* UserPreferences.swift */,
+				81ED55102017E8DD00977E5B /* FileManagerHelper.swift */,
 			);
 			path = "Data Persistence";
 			sourceTree = "<group>";
@@ -567,6 +573,7 @@
 				81B74FC62016A09C00EDD15C /* UserPreferences.swift in Sources */,
 				8138AE4A2012CABE00FAFEC2 /* PhotoModel.swift in Sources */,
 				8111528A2017CD5D00752809 /* APIKeys.swift in Sources */,
+				81ED55112017E8DD00977E5B /* FileManagerHelper.swift in Sources */,
 				81CC34C42012CE3100E7C45A /* VenueListViewController.swift in Sources */,
 				8138AE522017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift in Sources */,
 				8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */,
@@ -574,6 +581,7 @@
 				81E26D3E20150CF200CAB37D /* AppError.swift in Sources */,
 				81CC34CA2012DDCF00E7C45A /* VenueCollectionViewCell.swift in Sources */,
 				8149FC29201196E30012F10F /* TabBarController.swift in Sources */,
+				81ED55132017F30E00977E5B /* VenueTipModel.swift in Sources */,
 				81CC34D52012F7B000E7C45A /* VenueDetailedViewController.swift in Sources */,
 				8138AE4C20167D3800FAFEC2 /* CreateFavoriteViewController.swift in Sources */,
 				8149FC252011966B0012F10F /* FavoriteCollectionViewController.swift in Sources */,

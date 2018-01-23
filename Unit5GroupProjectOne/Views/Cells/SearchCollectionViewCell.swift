@@ -44,7 +44,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
 
     public func configureCell(withVenue venue: Venue) {
         //will use the photo api client - which should check for cache
-        
+        venue.id
         //TODO: set up image with photo api client - which should probably return
         
     }

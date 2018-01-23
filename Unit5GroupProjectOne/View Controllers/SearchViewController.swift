@@ -103,6 +103,7 @@ extension SearchViewController {
         searchView.venueCollectionView.dataSource = self
         LocationService.manager.delegate = self
         searchView.mapView.delegate = self
+        searchView.mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "mapAnnotationView")
         
     }
     
@@ -130,17 +131,7 @@ extension SearchViewController {
                 self.present(alertController, animated: true, completion: nil)
                 
             default:
-//                let userCoordinates = searchView.mapView.userLocation.coordinate
-//
-//                let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-//
-//                searchView.mapView.showsUserLocation = true
-//
-//                let userRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), span: mapSpan)
-                
-                //fix this - make the map view center on the region of the user location when the app first starts up
-                
-//                searchView.mapView.setRegion(userRegion, animated: true)
+                //stuff that you might want to happen if the app starts and the user access is on
                 break
 
             }
@@ -265,6 +256,38 @@ extension SearchViewController: LocationServiceDelegate {
 
 extension SearchViewController: MKMapViewDelegate {
     //to do!!
+    
+    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
+        print(error)
+        //maybe present error message about location not enabled???
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("tapped accessory!!!")
+        //should segue to detail view
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        //returns the view for each annotation - the bubble thing that pops up
+        
+        //if annotation is the user location, don't do anything
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "mapAnnotationView") as? MKMarkerAnnotationView
+        
+        //the bubble that pops up when you click the annotation
+        annotationView?.canShowCallout = true
+        annotationView?.annotation = annotation
+        
+        annotationView?.animatesWhenAdded = true
+        
+        annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        
+        return annotationView
+    }
+    
 }
 
 

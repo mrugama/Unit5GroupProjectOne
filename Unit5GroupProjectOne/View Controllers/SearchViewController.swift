@@ -100,6 +100,7 @@ extension SearchViewController {
         searchView.venueCollectionView.delegate = self
         searchView.venueCollectionView.dataSource = self
         LocationService.manager.delegate = self
+        searchView.mapView.delegate = self
         
     }
     
@@ -127,7 +128,19 @@ extension SearchViewController {
                 self.present(alertController, animated: true, completion: nil)
                 
             default:
+//                let userCoordinates = searchView.mapView.userLocation.coordinate
+//
+//                let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+//
+//                searchView.mapView.showsUserLocation = true
+//
+//                let userRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), span: mapSpan)
+                
+                //fix this - make the map view center on the region of the user location when the app first starts up
+                
+//                searchView.mapView.setRegion(userRegion, animated: true)
                 break
+
             }
         }
     }
@@ -153,26 +166,41 @@ extension SearchViewController {
     }
     
     private func createAlertController(withTitle title: String?, andMessage message: String?) -> UIAlertController {
-    
-        return UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        
+        return alertController
     }
     
     private func getVenues(fromSearchTerm searchTerm: String, latitude: Double, andLongitude longitude: Double) {
         
-        //make sure to format search term!!
-        
-        //to do - update
-//        VenueAPIClient.manager.getVenue(from: searchTerm, lat: latitude, lon: longitude, completionHandler: { (venues) in
-//
-//            self.venues = venues
-//
-//        }, errorHandler: { (error) in
-//
-//
-//            //TODO: Present the alert
-//
-//        })
-//
+        VenueAPIClient.manager.getVenues(withSearchTerm: searchTerm, lat: latitude, lon: longitude, completion: { (venues) in
+            
+            if venues.isEmpty {
+                print("It's empty!!!")
+                
+                //present the "no results" alert
+                let alertController = self.createAlertController(withTitle: "No Results", andMessage: "Please try again with a different search term or location.")
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+                return
+            }
+            
+            print(venues)
+            self.venues = venues
+            
+        }, errorHandler: { (error) in
+            
+            //TODO: Present the alert
+            let alertController = self.createAlertController(withTitle: "Error", andMessage: "An error occurred:\n\(error)")
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        })
+
     }
     
 }
@@ -309,9 +337,13 @@ extension SearchViewController: UISearchBarDelegate {
                     
                     //do search
                     
+                    let userLocation = searchView.mapView.userLocation
+                    
+                    getVenues(fromSearchTerm: formattedVenueSearchText, latitude: userLocation.coordinate.latitude, andLongitude: userLocation.coordinate.longitude)
+                    
                 } else {
                     //if location services is not enabled - present alert controller
-                    
+                    presentSettingsAlertController(withTitle: "Location Services Not Enabled", andMessage: "Please enable Location Services in Settings for better search results.")
                 }
             
             return
@@ -321,7 +353,12 @@ extension SearchViewController: UISearchBarDelegate {
         LocationService.manager.getLatAndLong(fromLocation: locationSearchText) { (error, coordinate) in
         
             if let error = error {
+                
                 //present alert that says could not get coordinates from user inputted location
+                let alertController = self.createAlertController(withTitle: "Error", andMessage: "Could not get coordinates from user-input location.\n\"\(error.localizedDescription)\"")
+                
+                self.present(alertController, animated: true, completion: nil)
+                
                 return
             }
             

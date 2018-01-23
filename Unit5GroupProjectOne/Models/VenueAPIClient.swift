@@ -8,45 +8,40 @@
 
 import UIKit
 import Alamofire
-
-struct VenueAPIClient {
+class VenueAPIClient {
     private init() {}
     static let manager = VenueAPIClient()
-    private let keyAPI = "ZQSWSRCGU33XMP2KNS2BWUNUICV4JJQYQ2NJNUNRTT4SXEZT"
-    func getVenue(from urlStr: String,
-                  lat latitute: Double,
-                  lon longitude: Double,
-                    completionHandler: @escaping ([Venue]) -> Void,
-                    errorHandler: @escaping (Error) -> Void) {
-        let urlWeather = "https://api.foursquare.com/v2/venues/search?ll=\(latitute),\(longitude)&oauth_token=\(keyAPI)&v=20180118"
-        guard let url = URL(string: urlWeather) else {return}
-        let parseDataVenue = {(data: Data) in
-            do {
-                let requestVenue = try JSONDecoder().decode(SearchVenue.self, from: data)
-                if let getVenue = requestVenue.searchVenue {
-                    completionHandler(getVenue.venues)
-                } else {
-                    errorHandler(AppError.noDataReceived)
-                    return
+    func getVenues(lat latitute: Double,
+                   lon longitude: Double,
+                   completion: @escaping ([Venue]?) -> Void) {
+        let urlBase = "https://api.foursquare.com/v2/venues/search"
+        let dateFormatted = DateFormatter()
+        let date = Date()
+        dateFormatted.dateFormat = "yyyyMMdd"
+        let strDate = dateFormatted.string(from: date)
+        print(strDate)
+        let params: [String: Any] = ["ll": "\(latitute),\(longitude)",
+            "oauth_token": APIKeys.apiKey,
+            "v": strDate]
+        
+        Alamofire.request(urlBase, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in
+            switch dataResponse.result {
+            case .failure(let error):
+                print("Response error: \(error.localizedDescription)")
+            case .success:
+                if let dataError = dataResponse.error {
+                    print("Data Error: \(dataError.localizedDescription)")
+                } else if let data = dataResponse.data {
+                    do {
+                        let decoder = JSONDecoder()
+                        let results = try decoder.decode(AllVenue.self, from: data)
+                        completion(results.responseVenue.venues)
+                    } catch let error {
+                        print("Data struct error: \(error.localizedDescription)")
+                    }
                 }
             }
-            catch let error {
-                errorHandler(AppError.couldNotParseJSON(rawError: error))
-            }
         }
-        NetworkHelper.manager.performDataTask(with: url, completionHandler: parseDataVenue, errorHandler: errorHandler)
     }
 }
-
-/*
- do {
- let request = NSURLRequest(URL: NSURL(string: "http://date.jsontest.com/")!)
- let json = try session.awaitJsonWithRequest(request)
- let date = json["date"]
- NSLog("\(date)")
- }
- catch let error as NSError {
- NSLog("\(error.localizedDescription)")
- }
- */
 

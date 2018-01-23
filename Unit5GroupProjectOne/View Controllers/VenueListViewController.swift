@@ -45,9 +45,11 @@ class VenueListViewController: UIViewController {
     }
     
     private func configureNavigation() {
-        let venueNavigation = UINavigationController(rootViewController: VenueDetailedViewController())
+        //Melissa: if this view controller is already embedded in a navigation controller, this is not needed, we can just push the venue detailed view on to the navigation stack
+//        let venueNavigation = UINavigationController(rootViewController: VenueDetailedViewController())
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissView))
+        navigationItem.title = "Search Results"
     }
     
 }

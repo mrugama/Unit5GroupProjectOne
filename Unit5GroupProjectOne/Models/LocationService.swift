@@ -13,6 +13,7 @@ protocol LocationServiceDelegate: class {
     
     func locationServiceAuthorizationStatusChanged(toStatus status: CLAuthorizationStatus)
     func userLocationUpdateFailed(withError error: Error)
+    func userLocationUpdatedToLocation(_ location: CLLocation)
     
 }
 
@@ -32,6 +33,8 @@ class LocationService: NSObject {
     public weak var delegate: LocationServiceDelegate?
     
     private var locationManager: CLLocationManager!
+    
+    private var geocoder = CLGeocoder()
     
 }
 
@@ -64,10 +67,42 @@ extension LocationService {
         }
         
     }
+    
+    public func getLatAndLong(fromLocation location: String, completionHandler: @escaping (Error?, (latitude: Double, longitude: Double)?) -> Void) {
+        
+        geocoder.geocodeAddressString(location) { (placemarks, error) in
+            
+            if let error = error {
+                completionHandler(error, nil)
+                return
+            }
+            
+            if let placemarks = placemarks {
+                let placemark = placemarks.first!
+                
+                guard let location = placemark.location else {
+                    completionHandler(error, nil)
+                    return
+                }
+                
+                completionHandler(nil, (latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            }
+            
+        }
+        
+    }
+    
+    //to avoid having to import core location in the view controller
+    public func locationServicesEnabled() -> Bool {
+        return CLLocationManager.locationServicesEnabled()
+    }
+    
 }
 
 //MARK: - Location Manager Delegate Methods
 //i'm not making the view controller conform to this delegate because there's some functions here that should be handled in the model, not the view controller; i'll make a separate custom delegate that can pass information from these delegate methods
+//TODO: get rid of the delegate lol
+
 extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -86,6 +121,12 @@ extension LocationService: CLLocationManagerDelegate {
         let location = locations.first
         
         print(location)
+        
+        if let location = location {
+        
+            delegate?.userLocationUpdatedToLocation(location)
+        
+        }
         //to do:
             //set up user preferences
             //save the location in user preferences as the last known current location

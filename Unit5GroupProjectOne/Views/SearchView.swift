@@ -37,11 +37,12 @@ class SearchView: UIView {
     lazy var mapView: MKMapView = {
         let map = MKMapView()
         map.showsUserLocation = true
+        map.mapType = .standard
         return map
     }()
     
     lazy var userTrackingButton: MKUserTrackingButton = {
-        let trackingButton = MKUserTrackingButton()
+        let trackingButton = MKUserTrackingButton(mapView: mapView)
         return trackingButton
     }()
     
@@ -75,7 +76,8 @@ class SearchView: UIView {
             collection.height.equalTo(self).multipliedBy(0.20)
         }
         userTrackingButton.snp.makeConstraints { (tracking) in
-            tracking.trailing.bottom.equalTo(self).offset(-20)
+            tracking.top.equalTo(locationSearchBar.snp.bottom).offset(16)
+            tracking.leading.equalTo(self).offset(16)
         }
     }
 

@@ -20,6 +20,7 @@ class VenueAPIClient {
         let urlWeather = "https://api.foursquare.com/v2/venues/search?query=\(searchTerm)ll=\(latitude),\(longitude)&oauth_token=\(keyAPI)&v=20180118"
         guard let url = URL(string: urlWeather) else {return}
         Alamofire.request(url).responseJSON{ response in
+            
             switch response.result{
             case .success:
                 if let data = response.data {
@@ -28,12 +29,20 @@ class VenueAPIClient {
                         completion(result.responseVenue.venues)
                     } catch let error {
                         print("Error decoding: \(error.localizedDescription)")
+                        errorHandler(AppError.couldNotParseJSON(rawError: error))
                     }
                 }
                 
             // MARK: do whatever you want
             case .failure(let error):
-                print(error.localizedDescription)
+                
+                if let error = error as? URLError {
+                    if error.code == URLError.notConnectedToInternet {
+                        errorHandler(AppError.noInternetConnection)
+                    }
+                }
+                
+                errorHandler(AppError.other(rawError: error))
             }
         }
     }

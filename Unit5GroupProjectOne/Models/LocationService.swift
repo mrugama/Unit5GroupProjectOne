@@ -13,6 +13,7 @@ protocol LocationServiceDelegate: class {
     
     func locationServiceAuthorizationStatusChanged(toStatus status: CLAuthorizationStatus)
     func userLocationUpdateFailed(withError error: Error)
+    func userLocationUpdatedToLocation(_ location: CLLocation)
     
 }
 
@@ -100,6 +101,8 @@ extension LocationService {
 
 //MARK: - Location Manager Delegate Methods
 //i'm not making the view controller conform to this delegate because there's some functions here that should be handled in the model, not the view controller; i'll make a separate custom delegate that can pass information from these delegate methods
+//TODO: get rid of the delegate lol
+
 extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -118,6 +121,12 @@ extension LocationService: CLLocationManagerDelegate {
         let location = locations.first
         
         print(location)
+        
+        if let location = location {
+        
+            delegate?.userLocationUpdatedToLocation(location)
+        
+        }
         //to do:
             //set up user preferences
             //save the location in user preferences as the last known current location

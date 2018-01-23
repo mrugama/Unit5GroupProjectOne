@@ -17,9 +17,16 @@ class VenueAPIClient {
                    lon longitude: Double,
                    completion: @escaping ([Venue]) -> Void,
                    errorHandler: @escaping (Error) -> Void) {
-        let urlWeather = "https://api.foursquare.com/v2/venues/search?query=\(searchTerm)&ll=\(latitude),\(longitude)&oauth_token=\(keyAPI)&v=20180118"
-        guard let url = URL(string: urlWeather) else {return}
-        Alamofire.request(url).responseJSON{ response in
+        let urlWeatherBase = "https://api.foursquare.com/v2/venues/search?"
+        
+        let params: [String: Any] = [
+            "query": searchTerm,
+            "ll": "\(latitude),\(longitude)",
+            "oauth_token": keyAPI,
+            "v": "20180118"
+        ]
+        
+        Alamofire.request(urlWeatherBase, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON{ response in
             
             switch response.result{
             case .success:

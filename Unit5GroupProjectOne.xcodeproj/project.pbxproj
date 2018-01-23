@@ -12,6 +12,8 @@
 		8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE452012BA9E00FAFEC2 /* SearchView.swift */; };
 		8138AE4A2012CABE00FAFEC2 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE492012CABE00FAFEC2 /* PhotoModel.swift */; };
 		8138AE4C20167D3800FAFEC2 /* CreateFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE4B20167D3800FAFEC2 /* CreateFavoriteViewController.swift */; };
+		8138AE502017D2FA00FAFEC2 /* AddOrCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE4F2017D2FA00FAFEC2 /* AddOrCreateViewController.swift */; };
+		8138AE522017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE512017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift */; };
 		8149FC252011966B0012F10F /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC242011966B0012F10F /* FavoriteCollectionViewController.swift */; };
 		8149FC27201196850012F10F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC26201196850012F10F /* SearchViewController.swift */; };
 		8149FC29201196E30012F10F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC28201196E30012F10F /* TabBarController.swift */; };
@@ -69,6 +71,8 @@
 		8138AE452012BA9E00FAFEC2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8138AE492012CABE00FAFEC2 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		8138AE4B20167D3800FAFEC2 /* CreateFavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFavoriteViewController.swift; sourceTree = "<group>"; };
+		8138AE4F2017D2FA00FAFEC2 /* AddOrCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrCreateViewController.swift; sourceTree = "<group>"; };
+		8138AE512017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailedTableViewCell.swift; sourceTree = "<group>"; };
 		8149FC242011966B0012F10F /* FavoriteCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewController.swift; sourceTree = "<group>"; };
 		8149FC26201196850012F10F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8149FC28201196E30012F10F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				8149FC26201196850012F10F /* SearchViewController.swift */,
 				81CC34C32012CE3100E7C45A /* VenueListViewController.swift */,
 				81CC34D42012F7B000E7C45A /* VenueDetailedViewController.swift */,
+				8138AE4F2017D2FA00FAFEC2 /* AddOrCreateViewController.swift */,
 				8149FC242011966B0012F10F /* FavoriteCollectionViewController.swift */,
 				8138AE4B20167D3800FAFEC2 /* CreateFavoriteViewController.swift */,
 			);
@@ -244,6 +249,7 @@
 				81CC34C72012DD0500E7C45A /* SearchCollectionViewCell.swift */,
 				81CC34C92012DDCF00E7C45A /* VenueCollectionViewCell.swift */,
 				81CC34CF2012E53200E7C45A /* AddCreateCollectionViewCell.swift */,
+				8138AE512017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift */,
 				81CC34CD2012E11600E7C45A /* VenueTableViewCell.swift */,
 			);
 			path = Cells;
@@ -562,6 +568,7 @@
 				8138AE4A2012CABE00FAFEC2 /* PhotoModel.swift in Sources */,
 				8111528A2017CD5D00752809 /* APIKeys.swift in Sources */,
 				81CC34C42012CE3100E7C45A /* VenueListViewController.swift in Sources */,
+				8138AE522017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift in Sources */,
 				8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */,
 				8149FC27201196850012F10F /* SearchViewController.swift in Sources */,
 				81E26D3E20150CF200CAB37D /* AppError.swift in Sources */,
@@ -583,6 +590,7 @@
 				81E26D3A2014DF9800CAB37D /* VenueModel.swift in Sources */,
 				81CC34C82012DD0500E7C45A /* SearchCollectionViewCell.swift in Sources */,
 				81CC34DB20154E2C00E7C45A /* LocationService.swift in Sources */,
+				8138AE502017D2FA00FAFEC2 /* AddOrCreateViewController.swift in Sources */,
 				81CC34CE2012E11600E7C45A /* VenueTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

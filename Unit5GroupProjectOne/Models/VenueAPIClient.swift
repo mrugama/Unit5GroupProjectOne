@@ -13,14 +13,16 @@ class VenueAPIClient {
     static let manager = VenueAPIClient()
     func getVenues(lat latitute: Double,
                    lon longitude: Double,
+                   search searchTerm: String,
                    completion: @escaping ([Venue]?) -> Void) {
         let urlBase = "https://api.foursquare.com/v2/venues/search"
         let dateFormatted = DateFormatter()
         let date = Date()
         dateFormatted.dateFormat = "yyyyMMdd"
         let strDate = dateFormatted.string(from: date)
-        print(strDate)
         let params: [String: Any] = ["ll": "\(latitute),\(longitude)",
+            "query": searchTerm,
+            "limit": 20,
             "oauth_token": APIKeys.apiKey,
             "v": strDate]
         

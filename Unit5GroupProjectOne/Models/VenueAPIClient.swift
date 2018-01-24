@@ -19,7 +19,7 @@ class VenueAPIClient {
     func getVenues(lat latitute: Double,
                    lon longitude: Double,
                    search searchTerm: String,
-                   completion: @escaping ([Venue]?) -> Void) {
+                   completion: @escaping ([Venue]) -> Void, errorHandler: @escaping (Error) -> Void) {
         let urlBase = "https://api.foursquare.com/v2/venues/search"
         let dateFormatted = DateFormatter()
         let date = Date()
@@ -39,6 +39,7 @@ class VenueAPIClient {
             
             case .failure(let error):
                 print("Response error: \(error.localizedDescription)")
+                errorHandler(AppError.other(rawError: error))
             case .success:
                 if let dataError = dataResponse.error {
                     print("Data Error: \(dataError.localizedDescription)")
@@ -50,6 +51,7 @@ class VenueAPIClient {
                         completion(results.responseVenue.venues)
                     } catch let error {
                         print("Data struct error: \(error.localizedDescription)")
+                        errorHandler(AppError.couldNotParseJSON(rawError: error))
                     }
                 }
             }

@@ -55,6 +55,7 @@ class VenueListViewController: UIViewController {
 }
 extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //TODO: Add array count
         return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,7 +65,7 @@ extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = VenueDetailedViewController()
+        let detailVC = VenueDetailedViewController() //should have a custom initializer that lets you use dependency injection to pass the current venue and image
         navigationController?.pushViewController(detailVC, animated: true)
         //TODO: setup segue to detailVC
     }

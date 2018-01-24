@@ -65,7 +65,7 @@ extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = VenueDetailedViewController()
+        let detailVC = VenueDetailedViewController() //should have a custom initializer that lets you use dependency injection to pass the current venue and image
         navigationController?.pushViewController(detailVC, animated: true)
         //TODO: setup segue to detailVC
     }

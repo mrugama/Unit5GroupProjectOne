@@ -22,6 +22,92 @@ class VenueTipsView: UIView {
         //create properties and initializers
     
         //maybe name the collection view the bottom view?
+    lazy var venueTipCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let venueTipCv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
+        venueTipCv.backgroundColor = .white
+        venueTipCv.register(VenueCollectionViewCell.self, forCellWithReuseIdentifier: "VenueCollectionCell")// not sure if we can use the same cell as venue collection??
+        return venueTipCv
+    }()
+    
+    lazy var venueTipTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Leave a tip"
+        textField.backgroundColor = .lightGray
+        textField.textAlignment = .center
+        return textField
+    }()
+    
+    lazy var LeaveAtipLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Please leave a tip"
+        label.textAlignment = .center
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    private func commonInit() {
+        backgroundColor = .white
+        setupViews()
+    }
+    
+    
+    private func setupViews() {
+        addSubview(venueTipCollectionView)
+        venueTipCollectionView.snp.makeConstraints { (collection) in
+            collection.top.bottom.trailing.leading.equalTo(self)
+        }
+        addSubview(venueTipTextField)
+        venueTipCollectionView.snp.makeConstraints { (textField) in
+            textField.top.trailing.leading.equalTo(self)
+            //TODO: -  constraints
+        }
+        addSubview(LeaveAtipLabel)
+         //TODO: -  constraints
+    }
+    
+    
+    // MARK:- ---> Textfield Delegates
+    func textFieldDidBeginEditing(textField: UITextField) {
+        print("TextField did begin editing method called")
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        print("TextField did end editing method called")
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        print("TextField should begin editing method called")
+        return true;
+    }
+    
+    func textFieldShouldClear(textField: UITextField) -> Bool {
+        print("TextField should clear method called")
+        return true;
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        print("TextField should snd editing method called")
+        return true;
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        print("While entering the characters this method gets called")
+        return true;
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        print("TextField should return method called")
+        textField.resignFirstResponder();
+        return true;
+    }
     
     
 }

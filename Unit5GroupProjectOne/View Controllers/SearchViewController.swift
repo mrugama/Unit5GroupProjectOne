@@ -201,6 +201,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let region = MKCoordinateRegion(center: center, span: span)
         searchView.mapView.setRegion(region, animated: true)
         searchView.mapView.selectAnnotation(selectedAnnotation, animated: true)
+        
+        //TODO: Nathan - add animation for this cell!!
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

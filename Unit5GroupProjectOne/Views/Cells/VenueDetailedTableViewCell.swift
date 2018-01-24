@@ -9,11 +9,11 @@
 import UIKit
 
 class VenueDetailedTableViewCell: UITableViewCell {
-
     //some label that has info/description about the venue
     //"Leave A Tip" - label
     //text view below that lets you write tips/edit existing tips!!
     //add constraints
+    
     
     lazy var venueImage: UIImageView = {
         let venueImage = UIImageView()
@@ -26,6 +26,7 @@ class VenueDetailedTableViewCell: UITableViewCell {
         label.text = "Description"
         return label
     }()
+    
     
     //TODO: setup textview
     lazy var detailTextView: UITextView = {

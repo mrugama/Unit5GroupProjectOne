@@ -21,13 +21,13 @@ class FileManagerHelper {
     
     private var collectionNames: [String] = [] {
         didSet {
-            //should save collection names
+            saveCollectionNames()
         }
     }
     
     private var collections: [[VenueTipModel]] = [] {
         didSet {
-            //should save collections and venues
+            saveCollections()
         }
     }
     

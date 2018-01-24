@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 //Message by Melissa: this is the view that the users will see after tapping the "+" bar button item in the venue detail view to add the venue to their collections or create a new collection with that venue
     //could also be what they see if they're in the collections tab; in the venue detail view, instead of seeing the "+" sign, they should see the "edit" sign so they can edit their tips!

@@ -15,29 +15,14 @@ import Kingfisher
 
 class VenueDetailedView: UIView {
     
-
     //to do
-        
         //set up initializers, etc.
         //set up properties - it should have at least these properties:
-            //venue image
-            //some label that has info/description about the venue
-            //"Leave A Tip" - label
-            //text view below that lets you write tips/edit existing tips!!
-        //add constraints
     
-//    lazy var venueTableView: UITableView = {
-//        let venueTv = UITableView()
-//        //venueTv.dataSource = self
-//        //venueTv.delegate = self
-//        venueTv.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueCell")
-//        return venueTv
-//    }()
-    
-    lazy var venueImage: UIImageView = {
-        let venueImage = UIImageView()
-        venueImage.contentMode = .scaleAspectFill
-        return venueImage
+    lazy var createTableView: UITableView = {
+        let tv = UITableView()
+        tv.register(VenueDetailedTableViewCell.self, forCellReuseIdentifier: "DetailCell")
+        return tv
     }()
     
     override init(frame: CGRect) {
@@ -54,36 +39,14 @@ class VenueDetailedView: UIView {
     }
     
     private func setupViews() {
-        addSubview(venueImage)
-        venueImage.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
+        addSubview(createTableView)
+        
+        createTableView.snp.makeConstraints { (tableView) in
+            tableView.edges.equalTo(self)
         }
     }
     
-
-    
-//    func layoutTableView() {
-//        venueTableView.translatesAutoresizingMaskIntoConstraints = false
-//        venueTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-//        venueTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-//        venueTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-//        venueTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-//    }
-    
 }
-//extension VenueDetailedView {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        //TODO: venue.count
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "VeneuCell", for: indexPath) as! VenueTableViewCell
-//        //TODO:
-//        return cell
-//    }
-//
-//}
 
 extension VenueDetailedView {
     public func configureView(photo: Photo) {

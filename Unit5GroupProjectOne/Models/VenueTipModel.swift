@@ -11,7 +11,7 @@ import Foundation
 struct VenueTipModel: Codable, Equatable {
     var venue: Venue
     var tip: String?
-    
+    var imageData: Data
     static func ==(lhs: VenueTipModel, rhs: VenueTipModel) -> Bool {
         return lhs.venue.id == rhs.venue.id
     }

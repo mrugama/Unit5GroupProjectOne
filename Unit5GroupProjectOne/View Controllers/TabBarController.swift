@@ -13,7 +13,7 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .orange//.lightGray
         
         ///SearchVC
         let searchNavigation = UINavigationController(rootViewController: SearchViewController())

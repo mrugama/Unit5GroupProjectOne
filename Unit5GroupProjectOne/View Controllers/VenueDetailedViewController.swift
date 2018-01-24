@@ -12,25 +12,26 @@ import UIKit
 
 class VenueDetailedViewController: UIViewController {
 
-    lazy var createTableView: UITableView = {
-        let tv = UITableView()
-        tv.register(VenueDetailedTableViewCell.self, forCellReuseIdentifier: "DetailCell")
-        return tv
-    }()
-    
+    let detailView = VenueDetailedView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        createTableView.dataSource = self
+        constrainView()
+        detailView.createTableView.dataSource = self
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(AddButtonPressed))
     }
     
-    private func constrainTableView() {
-        view.addSubview(createTableView)
+    @objc private func AddButtonPressed() {
+        navigationController?.present(AddCollectionTipViewController(), animated: true, completion: nil)
+    }
+    
+    private func constrainView() {
+        view.addSubview(detailView)
         
-        createTableView.snp.makeConstraints { (tv) in
-            tv.edges.equalTo(self.view.safeAreaLayoutGuide)
+        detailView.snp.makeConstraints { (view) in
+            view.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
-    
     
 }
 extension VenueDetailedViewController: UITableViewDataSource {

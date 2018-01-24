@@ -18,12 +18,32 @@ class VenueListViewController: UIViewController {
         //no need for self-sizing cells, so please give a specific height for each row
         //set up delegate methods
         //in the did select delegate method, tapping a table view cell should segue to a
+    var navTitle: String!
+    
+    //results
+    var venues: [Venue]?
+    
+    //saved venues
+    var savedVenues: [VenueTipModel]?
+    
     lazy var venueListTableView: UITableView = {
         let tv = UITableView()
         tv.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueListCell")
         return tv
     }()
-    
+    init(navTitle: String, venues: [Venue]) {
+        super.init(nibName: nil, bundle: nil)
+        self.navTitle = navTitle
+        self.venues = venues
+    }
+    init(navTitle: String, savedVenues: [VenueTipModel]) {
+        super.init(nibName: nil, bundle: nil)
+        self.navTitle = navTitle
+        self.savedVenues = savedVenues
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainTableView()

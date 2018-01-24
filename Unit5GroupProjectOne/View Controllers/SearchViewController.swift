@@ -221,8 +221,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let venue = venues[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionCell", for: indexPath) as! SearchCollectionViewCell
-        cell.contentView.backgroundColor = .gray
+        cell.configureCell(withVenue: venue)
+        cell.contentView.backgroundColor = .clear
         return cell
     }
 }

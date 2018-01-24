@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 //Message by Melissa: this should have all the detailed information about the venues after selecting them from the from the search tab
 
@@ -45,5 +46,11 @@ class VenueDetailedView: UIView {
         }
     }
     
+}
+
+extension VenueDetailedView {
+    public func configureView(photo: Photo) {
+        
+    }
 }
 

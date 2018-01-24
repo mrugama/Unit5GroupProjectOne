@@ -56,12 +56,17 @@ class SearchViewController: UIViewController {
         configureNavBar()
         delegateAndDataSource()
         setUpLocationServices()
+        
+        definesPresentationContext = true 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let _ = LocationService.manager.checkAuthorizationStatusAndLocationServices()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        print("Disappear")
     }
     
 }

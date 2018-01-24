@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 //Message by Melissa: this will be for the collection view that is seen in the search tab
 
@@ -44,7 +45,17 @@ class SearchCollectionViewCell: UICollectionViewCell {
 
     public func configureCell(withVenue venue: Venue) {
         //will use the photo api client - which should check for cache
-        venue.id
+        PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: {(photo) in
+            if let photo = photo?.first {
+                let urlPhoto = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
+                if let url = URL(string: urlPhoto) {
+                    self.searchCellImage.kf.indicatorType = .activity
+                    self.searchCellImage.kf.setImage(with: url, placeholder: UIImage.init(named: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                        
+                    })
+                }
+            }
+        })
         //TODO: set up image with photo api client - which should probably return
         
     }

@@ -21,13 +21,13 @@ class FileManagerHelper {
     
     private var collectionNames: [String] = [] {
         didSet {
-            //should save collection names
+            saveCollectionNames()
         }
     }
     
     private var collections: [[VenueTipModel]] = [] {
         didSet {
-            //should save collections and venues
+            saveCollections()
         }
     }
     
@@ -103,10 +103,11 @@ class FileManagerHelper {
         }
     }
     //add
-    public func addCollectionName(_ newName: String) -> Bool {
-        if !collectionNames.contains(newName) {
-            self.collectionNames.append(newName)
-            print("added collection name!!")
+    public func addNewEmptyCollection(withName name: String) -> Bool {
+        if !collectionNames.contains(name) {
+            self.collectionNames.append(name)
+            self.collections.append([])
+            print("added new collection with name \(name)!!")
             return true
         }
         return false // should present message saying "A collection with this name already exists; please use a different name"

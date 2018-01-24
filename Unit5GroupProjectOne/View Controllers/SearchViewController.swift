@@ -19,13 +19,8 @@ class SearchViewController: UIViewController {
     
      var venues: [Venue] = [] {
         didSet {
-            searchView.venueCollectionView.reloadData()            
-            
-            //should create a list of annotations from these venues
-            //should assign that list to self.annotations (replacing the old list!)
-            
+            searchView.venueCollectionView.reloadData()
             var annotations: [MKAnnotation] = []
-            
             for venue in venues {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng)
@@ -40,10 +35,6 @@ class SearchViewController: UIViewController {
     
      var annotations: [MKAnnotation] = [] {
         didSet {
-            //when this changes
-                //should remove the old pins from the map
-                //should replace the old pins in the map with new annotations!!
-            
             searchView.mapView.addAnnotations(annotations)
             searchView.mapView.showAnnotations(annotations, animated: true)
         }
@@ -65,10 +56,6 @@ class SearchViewController: UIViewController {
         
         let _ = LocationService.manager.checkAuthorizationStatusAndLocationServices()
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        print("Disappear")
-    }
-    
 }
 
 //MARK: - Helper Functions
@@ -88,7 +75,7 @@ extension SearchViewController {
     }
     
     @objc private func venueListButton() {
-        let modalVC = VenueListViewController() //to do: the initializer for this view controller should take in the current results (the data source variable) and pass them to this view controller, so it has a datasource variable for its own table view
+        let modalVC = VenueListViewController(navTitle: "Search Results", venues: self.venues)
         let navController = UINavigationController(rootViewController: modalVC)
         modalVC.view.backgroundColor = .white
         self.present(navController, animated: true, completion: nil)

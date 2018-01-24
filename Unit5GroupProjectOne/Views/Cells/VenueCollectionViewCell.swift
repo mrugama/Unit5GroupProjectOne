@@ -15,6 +15,10 @@ class VenueCollectionViewCell: UICollectionViewCell {
     
     lazy var venueCollectionImage: UIImageView = {
         let image = UIImageView()
+        
+        //default placeholder
+        image.image = #imageLiteral(resourceName: "placeholder")
+        
         return image
     }()
     lazy var venueName: UILabel = {
@@ -50,13 +54,16 @@ class VenueCollectionViewCell: UICollectionViewCell {
         
     }
     
-    public func configureCell() {
-        venueName.text = "Aye we lit!"
-        venueCollectionImage.image = #imageLiteral(resourceName: "placeholder")
+    public func configureCell(withCollection collection: [VenueTipModel], andTitle title: String) {
+        if !collection.isEmpty {
+            let imageData = collection[0].imageData
+            guard let image = UIImage(data: imageData) else {
+                print("could not retrieve saved venue image")
+                return
+            }
+            self.venueCollectionImage.image = image
+        }
+        
+        self.venueName.text = title
     }
-        //set up initializers
-        //set up properties
-        //set up constraints
-        //maybe add configure cell function that sets up the contents of the properties
-    
 }

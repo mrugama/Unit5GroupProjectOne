@@ -44,7 +44,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
         //maybe add a "configure cell" function here that takes in some parameter and sets up the property for you, instead of having to do all that in the cellForItemAt datasource method in the view controller (to avoid cluttering the view controller, and having a cell that is more reusable)
 
     public func configureCell(withVenue venue: Venue) {
-        //will use the photo api client - which should check for cache
+        //TODO: Marlon - Fix flicking problem
         PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: {(photo) in
             if let photo = photo?.first {
                 let urlPhoto = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"

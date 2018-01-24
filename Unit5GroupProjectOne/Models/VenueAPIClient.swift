@@ -8,9 +8,14 @@
 
 import UIKit
 import Alamofire
+
 class VenueAPIClient {
     private init() {}
     static let manager = VenueAPIClient()
+    
+    
+    
+    
     func getVenues(lat latitute: Double,
                    lon longitude: Double,
                    search searchTerm: String,
@@ -27,7 +32,11 @@ class VenueAPIClient {
             "v": strDate]
         
         Alamofire.request(urlBase, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in
+            
+            
+            
             switch dataResponse.result {
+            
             case .failure(let error):
                 print("Response error: \(error.localizedDescription)")
                 errorHandler(AppError.other(rawError: error))
@@ -38,6 +47,7 @@ class VenueAPIClient {
                     do {
                         let decoder = JSONDecoder()
                         let results = try decoder.decode(AllVenue.self, from: data)
+                        
                         completion(results.responseVenue.venues)
                     } catch let error {
                         print("Data struct error: \(error.localizedDescription)")

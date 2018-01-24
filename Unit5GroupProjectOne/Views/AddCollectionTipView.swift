@@ -1,5 +1,5 @@
 //
-//  VenueTipsView.swift
+//  AddCollectionTipView.swift
 //  Unit5GroupProjectOne
 //
 //  Created by C4Q on 1/21/18.
@@ -26,7 +26,7 @@ class VenueTipsView: UIView {
         let layout = UICollectionViewFlowLayout()
         let venueTipCv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         venueTipCv.backgroundColor = .white
-        venueTipCv.register(VenueCollectionViewCell.self, forCellWithReuseIdentifier: "VenueCollectionCell")// not sure if we can use the same cell as venue collection??
+        venueTipCv.register(VenueCollectionViewCell.self, forCellWithReuseIdentifier: "AddCollectionTipCell")// not sure if we can use the same cell as venue collection??
         return venueTipCv
     }()
     
@@ -38,7 +38,7 @@ class VenueTipsView: UIView {
         return textField
     }()
     
-    lazy var LeaveAtipLabel: UILabel = {
+    lazy var venuwTipLabel: UILabel = {
         let label = UILabel()
         label.text = "Please leave a tip"
         label.textAlignment = .center
@@ -58,7 +58,6 @@ class VenueTipsView: UIView {
         setupViews()
     }
     
-    
     private func setupViews() {
         addSubview(venueTipCollectionView)
         venueTipCollectionView.snp.makeConstraints { (collection) in
@@ -69,7 +68,7 @@ class VenueTipsView: UIView {
             textField.top.trailing.leading.equalTo(self)
             //TODO: -  constraints
         }
-        addSubview(LeaveAtipLabel)
+        addSubview(venuwTipLabel)
          //TODO: -  constraints
     }
     

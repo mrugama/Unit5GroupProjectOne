@@ -49,6 +49,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
             if let photo = photo?.first {
                 let urlPhoto = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
                 if let url = URL(string: urlPhoto) {
+                    self.searchCellImage.kf.indicatorType = .activity
                     self.searchCellImage.kf.setImage(with: url, placeholder: UIImage.init(named: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
                         
                     })

@@ -18,12 +18,32 @@ class VenueListViewController: UIViewController {
         //no need for self-sizing cells, so please give a specific height for each row
         //set up delegate methods
         //in the did select delegate method, tapping a table view cell should segue to a
+    var navTitle: String!
+    
+    //results
+    var venues: [Venue]?
+    
+    //saved venues
+    var savedVenues: [VenueTipModel]?
+    
     lazy var venueListTableView: UITableView = {
         let tv = UITableView()
         tv.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueListCell")
         return tv
     }()
-    
+    init(navTitle: String, venues: [Venue]) {
+        super.init(nibName: nil, bundle: nil)
+        self.navTitle = navTitle
+        self.venues = venues
+    }
+    init(navTitle: String, savedVenues: [VenueTipModel]) {
+        super.init(nibName: nil, bundle: nil)
+        self.navTitle = navTitle
+        self.savedVenues = savedVenues
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainTableView()
@@ -48,19 +68,38 @@ class VenueListViewController: UIViewController {
         //Melissa: if this view controller is already embedded in a navigation controller, this is not needed, we can just push the venue detailed view on to the navigation stack
 //        let venueNavigation = UINavigationController(rootViewController: VenueDetailedViewController())
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissView))
-        navigationItem.title = "Search Results"
+        if venues != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissView))
+        }
+        
+        navigationItem.title = self.navTitle
     }
     
 }
 extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: Add array count
-        return 10
+        if let venues = self.venues {
+            return venues.count
+        }
+        
+        return savedVenues!.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueListCell", for: indexPath)
-        //TODO: configure cell with data
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueListCell", for: indexPath) as! VenueTableViewCell
+        var currentVenue: Venue!
+        
+        if let venues = venues {
+            currentVenue = venues[indexPath.row]
+        } else if let savedVenues = savedVenues {
+            currentVenue = savedVenues[indexPath.row].venue
+        }
+        
+        //pass this to the configure cell
+        cell.venueName.text = currentVenue.name
+        cell.categoryName.text = currentVenue.categories.map{$0.shortName}.joined(separator: " ,")
+        
+        //cell.configureCell() //TODO: finish configure cell function
         return cell
     }
     

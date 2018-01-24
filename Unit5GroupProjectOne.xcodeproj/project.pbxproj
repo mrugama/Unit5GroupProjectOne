@@ -14,8 +14,11 @@
 		8138AE4C20167D3800FAFEC2 /* CreateFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE4B20167D3800FAFEC2 /* CreateFavoriteViewController.swift */; };
 		8138AE502017D2FA00FAFEC2 /* AddOrCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE4F2017D2FA00FAFEC2 /* AddOrCreateViewController.swift */; };
 		8138AE522017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE512017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift */; };
+		8138AE572017FC5200FAFEC2 /* SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE562017FC5200FAFEC2 /* SearchBarDelegate.swift */; };
+		8138AE5A2018022400FAFEC2 /* MKMapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE582018004300FAFEC2 /* MKMapViewDelegate.swift */; };
+		8138AE60201807A500FAFEC2 /* LocationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE5B2018027C00FAFEC2 /* LocationServiceDelegate.swift */; };
+		8138AE612018270C00FAFEC2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC26201196850012F10F /* SearchViewController.swift */; };
 		8149FC252011966B0012F10F /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC242011966B0012F10F /* FavoriteCollectionViewController.swift */; };
-		8149FC27201196850012F10F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC26201196850012F10F /* SearchViewController.swift */; };
 		8149FC29201196E30012F10F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8149FC28201196E30012F10F /* TabBarController.swift */; };
 		8149FC2C2011A65F0012F10F /* Mockup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8149FC2B2011A65F0012F10F /* Mockup.storyboard */; };
 		8177AFBC20169D0B0024C5E5 /* PhotoAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8177AFBB20169D0B0024C5E5 /* PhotoAPIClient.swift */; };
@@ -73,6 +76,9 @@
 		8138AE4B20167D3800FAFEC2 /* CreateFavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFavoriteViewController.swift; sourceTree = "<group>"; };
 		8138AE4F2017D2FA00FAFEC2 /* AddOrCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrCreateViewController.swift; sourceTree = "<group>"; };
 		8138AE512017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailedTableViewCell.swift; sourceTree = "<group>"; };
+		8138AE562017FC5200FAFEC2 /* SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarDelegate.swift; sourceTree = "<group>"; };
+		8138AE582018004300FAFEC2 /* MKMapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapViewDelegate.swift; sourceTree = "<group>"; };
+		8138AE5B2018027C00FAFEC2 /* LocationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceDelegate.swift; sourceTree = "<group>"; };
 		8149FC242011966B0012F10F /* FavoriteCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewController.swift; sourceTree = "<group>"; };
 		8149FC26201196850012F10F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8149FC28201196E30012F10F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -176,11 +182,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		8138AE532017FBB200FAFEC2 /* SearchExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				8138AE562017FC5200FAFEC2 /* SearchBarDelegate.swift */,
+				8138AE5B2018027C00FAFEC2 /* LocationServiceDelegate.swift */,
+				8138AE582018004300FAFEC2 /* MKMapViewDelegate.swift */,
+			);
+			path = SearchExtensions;
+			sourceTree = "<group>";
+		};
 		8149FC23201196480012F10F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				8149FC28201196E30012F10F /* TabBarController.swift */,
 				8149FC26201196850012F10F /* SearchViewController.swift */,
+				8138AE532017FBB200FAFEC2 /* SearchExtensions */,
 				81CC34C32012CE3100E7C45A /* VenueListViewController.swift */,
 				81CC34D42012F7B000E7C45A /* VenueDetailedViewController.swift */,
 				8138AE4F2017D2FA00FAFEC2 /* AddOrCreateViewController.swift */,
@@ -570,16 +587,19 @@
 				81CC34C42012CE3100E7C45A /* VenueListViewController.swift in Sources */,
 				8138AE522017D66D00FAFEC2 /* VenueDetailedTableViewCell.swift in Sources */,
 				8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */,
-				8149FC27201196850012F10F /* SearchViewController.swift in Sources */,
 				81E26D3E20150CF200CAB37D /* AppError.swift in Sources */,
+				8138AE612018270C00FAFEC2 /* SearchViewController.swift in Sources */,
 				81CC34CA2012DDCF00E7C45A /* VenueCollectionViewCell.swift in Sources */,
 				8149FC29201196E30012F10F /* TabBarController.swift in Sources */,
 				81CC34D52012F7B000E7C45A /* VenueDetailedViewController.swift in Sources */,
 				8138AE4C20167D3800FAFEC2 /* CreateFavoriteViewController.swift in Sources */,
 				8149FC252011966B0012F10F /* FavoriteCollectionViewController.swift in Sources */,
+				8138AE60201807A500FAFEC2 /* LocationServiceDelegate.swift in Sources */,
 				81CC34D92015478100E7C45A /* CreateCollectionView.swift in Sources */,
 				81CC34D32012F12900E7C45A /* VenueDetailedView.swift in Sources */,
 				81E26D4020163ADA00CAB37D /* NetworkHelper.swift in Sources */,
+				8138AE5A2018022400FAFEC2 /* MKMapViewDelegate.swift in Sources */,
+				8138AE572017FC5200FAFEC2 /* SearchBarDelegate.swift in Sources */,
 				81CC34D7201545ED00E7C45A /* VenueTipsView.swift in Sources */,
 				81CC34C62012D20B00E7C45A /* VenueCollectionView.swift in Sources */,
 				81CC34D02012E53200E7C45A /* AddCreateCollectionViewCell.swift in Sources */,

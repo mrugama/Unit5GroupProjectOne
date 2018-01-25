@@ -10,11 +10,18 @@ import UIKit
 
 class AddCollectionTipViewController: UIViewController {
     
-    let addTipView = AddCollectionTipViewCell()
+    let addTipView = AddCollectionTipView()
+    let venue: VenueTipModel! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainView()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveCollection))
+    }
+    @objc private func saveCollection() {
+        guard let text = addTipView.venueTipTextField.text else {return}
+        FileManagerHelper.manager.addNewCollection([venue], withCollectionName: text)
     }
     
     private func constrainView() {

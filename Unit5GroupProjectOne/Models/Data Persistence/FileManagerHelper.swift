@@ -145,10 +145,18 @@ class FileManagerHelper {
         print("got collections")
         return collections
     }
-    
+
     //TODO: Extra Credit
+    //update - extra credit
+    public func updateCollectionName(atIndex index: Int, withName newName: String) {
+        self.collectionNames[index] = newName
+        print("update collection name!!")
+    }
     //remove - extra credit
-    //edit - extra credit
-    
+    public func removeCollection(atIndex index: Int) {
+        self.collectionNames.remove(at: index)
+        self.collections.remove(at: index)
+        print("removed collection!!")
+    }
 }
 

@@ -15,6 +15,7 @@ import Kingfisher
 
 class AddCollectionTipView: UIView {
     
+    let radius: CGFloat = 5.0
     //to do:
         //should have a collection view at the bottom, and some stuff at the top
         //should have a textfield at the top which takes in the collection name
@@ -25,10 +26,12 @@ class AddCollectionTipView: UIView {
         //maybe name the collection view the bottom view?
     lazy var venueTipCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let venueTipCv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        venueTipCv.backgroundColor = .white
-        venueTipCv.register(VenueCollectionViewCell.self, forCellWithReuseIdentifier: "AddCollectionTipCell")// not sure if we can use the same cell as venue collection??
-        return venueTipCv
+        let cv = UICollectionView(frame: frame, collectionViewLayout: layout)
+        cv.backgroundColor = .white
+        cv.layer.borderWidth = 1
+        cv.register(VenueCollectionViewCell.self, forCellWithReuseIdentifier: "AddCollectionTipCell")// not sure if we can use the same cell as venue collection??
+        makeCornerRadius(view: cv)
+        return cv
     }()
     
     lazy var venueTipTextField: UITextField = {
@@ -41,19 +44,41 @@ class AddCollectionTipView: UIView {
         tf.layer.shadowOpacity = 1
         tf.layer.shadowOffset = CGSize.zero
         tf.layer.shadowRadius = 10
+        makeCornerRadius(view: tf)
         return tf
     }()
     
     lazy var venueTipLabel: UILabel = {
         let label = UILabel()
-        label.text = "Please leave a tip"
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.text = "Please Leave a Tip"
         label.textAlignment = .center
+        label.layer.borderWidth = 1
+        label.backgroundColor = .white
+        makeCornerRadius(view: label)
         return label
     }()
     lazy var venueTipTextView: UITextView = {
         let textView = UITextView()
+        textView.layer.borderWidth = 1
+        makeCornerRadius(view: textView)
         return textView
     }()
+    lazy var homeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage.init(named: "backhome"), for: .normal)
+        button.setTitle("Home", for: .normal)
+        button.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -45)// top, left, bottom, right
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, -30, -30, 0)
+        makeCornerRadius(view: button)
+        button.backgroundColor = .purple
+        return button
+    }()
+    
+    private func makeCornerRadius(view: UIView) {
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = radius
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,31 +89,44 @@ class AddCollectionTipView: UIView {
         commonInit()
     }
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .lightGray
         setupViews()
     }
     
     private func setupViews() {
-        let viewObject = [venueTipCollectionView, venueTipTextField, venueTipLabel, venueTipTextView] as [UIView]
+        let viewObject = [venueTipCollectionView, venueTipTextField, venueTipLabel, venueTipTextView, homeButton] as [UIView]
         viewObject.forEach{addSubview($0)}
         
+        let padding: CGFloat = 5
+        
         venueTipTextField.snp.makeConstraints { (field) in
-            field.top.leading.equalTo(self).offset(5)
-            field.trailing.equalTo(self).offset(-5)
+            field.top.leading.equalTo(self).offset(padding)
+            field.trailing.equalTo(self).offset(-padding)
             field.height.equalTo(50)
         }
         venueTipLabel.snp.makeConstraints { (label) in
-            label.width.equalTo(self.venueTipTextField)
-            label.top.equalTo(self.venueTipTextField.snp.bottom)
+            label.width.equalTo(venueTipTextField)
+            label.leading.equalTo(self).offset(padding)
+            label.height.equalTo(venueTipLabel.snp.width).multipliedBy(0.05)
+            label.top.equalTo(venueTipTextField.snp.bottom).offset(5)
         }
         venueTipTextView.snp.makeConstraints { (view) in
-            view.width.equalTo(self.venueTipTextField)
-            view.top.equalTo(self.venueTipLabel.snp.bottom)
+            view.leading.equalTo(self).offset(padding)
+            view.width.equalTo(venueTipTextField)
+            view.height.equalTo(venueTipTextView.snp.width).multipliedBy(0.5)
+            view.top.equalTo(venueTipLabel.snp.bottom)
             
         }
         venueTipCollectionView.snp.makeConstraints { (collection) in
-            collection.width.equalTo(self.venueTipTextField)
-            collection.top.equalTo(self.venueTipTextView.snp.bottom)
+            collection.width.equalTo(venueTipTextField)
+            collection.leading.equalTo(self).offset(padding)
+            collection.top.equalTo(venueTipTextView.snp.bottom).offset(padding)
+            collection.bottom.equalTo(homeButton.snp.top).offset(-padding)
+        }
+        homeButton.snp.makeConstraints { (button) in
+            button.bottom.trailing.equalTo(self).offset(-padding)
+            button.width.equalTo(venueTipTextField)
+            button.height.equalTo(50)
         }
         
     }

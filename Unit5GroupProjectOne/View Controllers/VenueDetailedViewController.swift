@@ -55,17 +55,49 @@ extension VenueDetailedViewController {
         PhotoAPIClient.manager.getPhotos(venue: venue.id) { (photo) in
             if let photo = photo?.first {
                 let photoURL = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
-                self.venueDetail[0] = photoURL
+                var index = 0
+                //self.venueDetail.append(photoURL)
+                self.venueDetail.insert(photoURL, at: index)
+                index += 1
+                let category = self.venue.categories.map{$0.shortName}.joined(separator: ", ").replacingOccurrences(of: "/", with: "")
+                //print(category)
+                //self.venueDetail.append(category)
+                self.venueDetail.insert(category, at: index)
+                index += 1
+                if let tip = tip {
+                    //self.venueDetail.append(tip)
+                    self.venueDetail.insert(tip, at: index)
+                } else {
+                    //self.venueDetail.append("Add a tip!")
+                    self.venueDetail.insert("Add a tip!", at: index)
+                }
+                index += 1
+                if let address = venue.location.formattedAddress {
+                    //self.venueDetail.append(address.joined(separator: ", "))
+                    self.venueDetail.insert(address.joined(separator: ", "), at: index)
+                    index += 1
+                } else {
+                    //self.venueDetail.append("No Address Available")
+                    self.venueDetail.insert("No Address Available", at: index)
+                    index += 1
+                }
+                
+            } else {
+                self.venueDetail.append("No Image Available")
+                let category = self.venue.categories.map{$0.shortName}.joined(separator: ", ").replacingOccurrences(of: "/", with: "")
+                //print(category)
+                self.venueDetail.append(category)
+                if let tip = tip {
+                    self.venueDetail.append(tip)
+                } else {
+                    self.venueDetail.append("Add a tip!")
+                }
+                if let address = venue.location.formattedAddress {
+                    self.venueDetail.append(address.joined(separator: ", "))
+                } else {
+                    self.venueDetail.append("No Address Available")
+                }
             }
-        }
-        let category = venue.categories[0].name
-        //print(category)
-        venueDetail.append(category)
-        if let tip = tip {
-            venueDetail.append(tip)
-        }
-        if let address = venue.location.address {
-            venueDetail.append(address)
         }
         
     }
@@ -96,6 +128,10 @@ extension VenueDetailedViewController: UITableViewDataSource {
                 cell.venueImage.image = nil
                 cell.venueImage.contentMode = .scaleToFill
                 if indexPath.row == 0 {
+                    cell.detailDescriptionLabel.snp.remakeConstraints({ (remake) in
+                        remake.height.greaterThanOrEqualTo(0)
+                    })
+                    
                     if let urlImage = URL(string: venue) {
                         cell.venueImage.kf.indicatorType = .activity
                         cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
@@ -103,12 +139,16 @@ extension VenueDetailedViewController: UITableViewDataSource {
                             cell.layoutIfNeeded()
                             cell.detailDescriptionLabel.text = nil
                         })
+                    } else {
+                        cell.venueImage.image = #imageLiteral(resourceName: "placeholder")
+                        cell.layoutIfNeeded()
                     }
+                    
                 } else {
                     cell.detailDescriptionLabel.text = venue
                 }
 //                cell.venueImage.setNeedsLayout()
-                cell.layoutIfNeeded()
+//                cell.layoutIfNeeded()
                 return cell
             }
         }

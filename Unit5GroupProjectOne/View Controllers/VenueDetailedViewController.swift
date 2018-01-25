@@ -18,16 +18,24 @@ class VenueDetailedViewController: UIViewController {
             self.detailView.VenueDetailTableView.reloadData()
         }
     }
+    
+    var venue: Venue!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainView()
         detailView.VenueDetailTableView.dataSource = self
+        detailView.VenueDetailTableView.delegate = self
+        detailView.VenueDetailTableView.rowHeight = 50
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(AddButtonPressed))
     }
     
     @objc private func AddButtonPressed() {
-        navigationController?.present(AddCollectionTipViewController(), animated: true, completion: nil)
+        let addTipVC = AddCollectionTipViewController(venue: self.venue)
+        
+        let navVC = UINavigationController(rootViewController: addTipVC)
+        
+        navigationController?.present(navVC, animated: true, completion: nil)
     }
     
     private func constrainView() {
@@ -42,6 +50,8 @@ class VenueDetailedViewController: UIViewController {
 
 extension VenueDetailedViewController {
     public func configureView(venue: Venue, tip: String?) {
+        self.venue = venue
+        
         PhotoAPIClient.manager.getPhotos(venue: venue.id) { (photo) in
             if let photo = photo?.first {
                 let photoURL = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
@@ -68,6 +78,9 @@ extension VenueDetailedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.bounds.height * 0.6
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //TODO: open maps
+    }
 }
 
 extension VenueDetailedViewController: UITableViewDataSource {
@@ -81,18 +94,21 @@ extension VenueDetailedViewController: UITableViewDataSource {
             if indexPath.row < venueDetail.count {
                 let venue = venueDetail[indexPath.row]
                 cell.venueImage.image = nil
+                cell.venueImage.contentMode = .scaleToFill
                 if indexPath.row == 0 {
                     if let urlImage = URL(string: venue) {
                         cell.venueImage.kf.indicatorType = .activity
-                        cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "defaultImage"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                        cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                            //cell.venueImage.setNeedsLayout()
+                            cell.layoutIfNeeded()
                             cell.detailDescriptionLabel.text = nil
                         })
                     }
                 } else {
                     cell.detailDescriptionLabel.text = venue
                 }
-                cell.venueImage.setNeedsLayout()
-                cell.setNeedsLayout()
+//                cell.venueImage.setNeedsLayout()
+                cell.layoutIfNeeded()
                 return cell
             }
         }

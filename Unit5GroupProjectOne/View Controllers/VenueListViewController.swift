@@ -86,21 +86,14 @@ extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
         return savedVenues!.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueListCell", for: indexPath) as! VenueTableViewCell
-        var currentVenue: Venue!
-        
-        if let venues = venues {
-            currentVenue = venues[indexPath.row]
-        } else if let savedVenues = savedVenues {
-            currentVenue = savedVenues[indexPath.row].venue
+        guard let venueArr = venues else {return UITableViewCell()}
+        let venue = venueArr[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "VenueListCell", for: indexPath) as? VenueTableViewCell {
+            cell.configureCell(venue: venue)
+            cell.setNeedsLayout()
+            return cell
         }
-        
-        //pass this to the configure cell
-        cell.venueName.text = currentVenue.name
-        cell.categoryName.text = currentVenue.categories.map{$0.shortName}.joined(separator: " ,")
-        
-        //cell.configureCell() //TODO: finish configure cell function
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

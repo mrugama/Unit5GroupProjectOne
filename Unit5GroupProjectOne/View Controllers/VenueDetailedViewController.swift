@@ -26,7 +26,7 @@ class VenueDetailedViewController: UIViewController {
         constrainView()
         detailView.VenueDetailTableView.dataSource = self
         detailView.VenueDetailTableView.delegate = self
-        detailView.VenueDetailTableView.rowHeight = 50
+        //detailView.VenueDetailTableView.rowHeight = 50
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(AddButtonPressed))
     }
     
@@ -108,7 +108,7 @@ extension VenueDetailedViewController: UITableViewDelegate {
         return UITableViewAutomaticDimension
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.bounds.height * 0.6
+        return view.layer.bounds.height * 0.80
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO: open maps
@@ -117,11 +117,10 @@ extension VenueDetailedViewController: UITableViewDelegate {
 
 extension VenueDetailedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //TODO: add array count
         return venueDetail.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { 
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as? VenueDetailedTableViewCell {
             if indexPath.row < venueDetail.count {
                 let venue = venueDetail[indexPath.row]
@@ -135,7 +134,6 @@ extension VenueDetailedViewController: UITableViewDataSource {
                     if let urlImage = URL(string: venue) {
                         cell.venueImage.kf.indicatorType = .activity
                         cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-                            //cell.venueImage.setNeedsLayout()
                             cell.layoutIfNeeded()
                             cell.detailDescriptionLabel.text = nil
                         })
@@ -147,8 +145,7 @@ extension VenueDetailedViewController: UITableViewDataSource {
                 } else {
                     cell.detailDescriptionLabel.text = venue
                 }
-//                cell.venueImage.setNeedsLayout()
-//                cell.layoutIfNeeded()
+                cell.layoutIfNeeded()
                 return cell
             }
         }

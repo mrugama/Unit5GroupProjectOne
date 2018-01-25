@@ -11,7 +11,16 @@ import UIKit
 class AddCollectionTipViewController: UIViewController {
     
     let addTipView = AddCollectionTipView()
-    let venue: VenueTipModel! = nil
+    var venue: Venue!
+    
+    init(venue: Venue) {
+        super.init(nibName: nil, bundle: nil)
+        self.venue = venue
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +34,7 @@ class AddCollectionTipViewController: UIViewController {
     
     @objc private func saveCollection() {
         guard let text = addTipView.venueTipTextField.text else {return}
-        FileManagerHelper.manager.addNewCollection([venue], withCollectionName: text)
+        
     }
     
     private func constrainView() {

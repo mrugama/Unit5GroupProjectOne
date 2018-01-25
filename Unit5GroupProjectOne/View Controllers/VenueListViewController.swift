@@ -104,7 +104,7 @@ extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = VenueDetailedViewController() //should have a custom initializer that lets you use dependency injection to pass the current venue and image
+        let detailVC = VenueDetailedViewController()
         let venue = venues![indexPath.row]
         detailVC.configureView(venue: venue, tip: nil)
         navigationController?.pushViewController(detailVC, animated: true)

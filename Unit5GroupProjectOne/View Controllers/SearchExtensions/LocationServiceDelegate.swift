@@ -46,7 +46,9 @@ extension SearchViewController: LocationServiceDelegate {
         let userRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), span: mapSpan)
         searchView.mapView.setRegion(userRegion, animated: true)
         //TODO: set the place holder everytime the current location changes!! - use the geocoder to find the actual place!
-        //TODO: fix user tracking button
+        
+        let currentLocation = LocationService.manager.getCurrentLocation(fromUserCoordinate: self.searchView.mapView.userLocation.coordinate)
+        
     }
     
 }

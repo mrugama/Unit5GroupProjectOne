@@ -97,6 +97,12 @@ extension LocationService {
         return CLLocationManager.locationServicesEnabled()
     }
     
+    //Melissa to do - change placeholder
+    public func getCurrentLocation(fromUserCoordinate userCoordinate: CLLocationCoordinate2D) -> String {
+        
+        
+    }
+    
 }
 
 //MARK: - Location Manager Delegate Methods

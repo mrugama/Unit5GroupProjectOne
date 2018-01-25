@@ -27,10 +27,6 @@ class VenueDetailedView: UIView {
     lazy var VenueDetailTableView: UITableView = {
         let tv = UITableView()
         tv.register(VenueDetailedTableViewCell.self, forCellReuseIdentifier: "DetailCell")
-        //tv.estimatedRowHeight = 50
-        //tv.rowHeight = UITableViewAutomaticDimension
-        tv.delegate = self
-        tv.dataSource = self
         return tv
     }()
     
@@ -74,40 +70,6 @@ extension VenueDetailedView {
             venueDetail.append(address)
         }
         
-    }
-}
-
-extension VenueDetailedView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as? VenueDetailedTableViewCell {
-            let venue = venueDetail[indexPath.row]
-            cell.venueImage.image = nil
-            if indexPath.row == 0 {
-                if let urlImage = URL(string: venue) {
-                    cell.venueImage.kf.indicatorType = .activity
-                    cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "defaultImage"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-                        cell.detailDescriptionLabel.text = nil
-                    })
-                    
-                }
-            } else {
-                cell.detailDescriptionLabel.text = venue
-            }
-            return cell
-        }
-        return UITableViewCell()
     }
 }
 

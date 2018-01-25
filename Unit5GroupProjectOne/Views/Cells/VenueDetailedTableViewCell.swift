@@ -15,7 +15,7 @@ class VenueDetailedTableViewCell: UITableViewCell {
     
     lazy var venueImage: UIImageView = {
         let venueImage = UIImageView()
-        venueImage.contentMode = .scaleToFill
+        venueImage.contentMode = .scaleAspectFill
         venueImage.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         venueImage.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         venueImage.setContentHuggingPriority(.defaultLow, for: .vertical)
@@ -25,7 +25,8 @@ class VenueDetailedTableViewCell: UITableViewCell {
     
     lazy var detailDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Description"
+        label.numberOfLines = 0
+        label.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: UILayoutConstraintAxis.vertical)
         return label
     }()
     
@@ -48,12 +49,12 @@ class VenueDetailedTableViewCell: UITableViewCell {
         
         venueImage.snp.makeConstraints { (image) in
             image.top.leading.trailing.equalTo(self)
-            image.height.lessThanOrEqualTo(self.bounds.height / 2)
+//            image.height.lessThanOrEqualTo(200)
         }
         detailDescriptionLabel.snp.makeConstraints { (label) in
             label.top.equalTo(venueImage.snp.bottom)
             label.bottom.trailing.leading.equalTo(self)
-            label.height.equalTo(50)
+            label.height.greaterThanOrEqualTo(50).priority(1000)
         }
     }
 }

@@ -77,7 +77,7 @@ extension SearchViewController {
     @objc private func venueListButton() {
         let modalVC = VenueListViewController(navTitle: "Search Results", venues: self.venues)
         let navController = UINavigationController(rootViewController: modalVC)
-        modalVC.view.backgroundColor = .white
+        modalVC.view.backgroundColor = .white        
         self.present(navController, animated: true, completion: nil)
     }
     

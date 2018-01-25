@@ -31,7 +31,7 @@ class VenueDetailedViewController: UIViewController {
     }
     
     @objc private func AddButtonPressed() {
-        let addTipVC = AddCollectionTipViewController(venue: self.venue)
+        let addTipVC = AddCollectionTipViewController(venue: self.venue, VC: self)
         
         let navVC = UINavigationController(rootViewController: addTipVC)
         

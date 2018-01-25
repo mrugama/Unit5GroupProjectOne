@@ -15,7 +15,6 @@ class VenueCollectionViewCell: UICollectionViewCell {
     
     lazy var venueCollectionImage: UIImageView = {
         let image = UIImageView()
-        
         //default placeholder
         image.image = #imageLiteral(resourceName: "placeholder")
         
@@ -25,6 +24,11 @@ class VenueCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         return label
+    }()
+    lazy var plusImage: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "plus")
+        return image
     }()
 
     override init(frame: CGRect) {
@@ -40,8 +44,8 @@ class VenueCollectionViewCell: UICollectionViewCell {
         setupViews()
     }
     private func setupViews() {
-        addSubview(venueCollectionImage)
-        addSubview(venueName)
+        let viewObjects = [venueCollectionImage, venueName, plusImage] as [UIView]
+        viewObjects.forEach{addSubview($0)}
         
         venueName.snp.makeConstraints { (label) in
             label.height.equalTo(self.contentView.snp.height).multipliedBy(0.25)
@@ -50,6 +54,9 @@ class VenueCollectionViewCell: UICollectionViewCell {
         venueCollectionImage.snp.makeConstraints { (image) in
             image.top.leading.trailing.equalTo(self.contentView)
             image.bottom.equalTo(self.venueName.snp.top)
+        }
+        plusImage.snp.makeConstraints { (image) in
+            image.center.equalTo(venueCollectionImage.snp.center)
         }
         
     }

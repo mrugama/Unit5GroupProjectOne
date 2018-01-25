@@ -29,10 +29,10 @@ class VenueDetailedTableViewCell: UITableViewCell {
     
     
     //TODO: setup textview
-    lazy var detailTextView: UITextView = {
-        let textView = UITextView()
-        return textView
-    }()
+//    lazy var detailTextView: UITextView = {
+//        let textView = UITextView()
+//        return textView
+//    }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "DetailCell")
@@ -51,7 +51,7 @@ class VenueDetailedTableViewCell: UITableViewCell {
         addSubview(detailDescriptionLabel)
         
         venueImage.snp.makeConstraints { (image) in
-            image.top.leading.trailing.equalTo(self)
+            image.edges.equalTo(self)
         }
         detailDescriptionLabel.snp.makeConstraints { (label) in
             label.bottom.trailing.leading.equalTo(self)

@@ -27,6 +27,8 @@ class VenueDetailedView: UIView {
     lazy var VenueDetailTableView: UITableView = {
         let tv = UITableView()
         tv.register(VenueDetailedTableViewCell.self, forCellReuseIdentifier: "DetailCell")
+        //tv.estimatedRowHeight = 50
+        //tv.rowHeight = UITableViewAutomaticDimension
         tv.delegate = self
         tv.dataSource = self
         return tv

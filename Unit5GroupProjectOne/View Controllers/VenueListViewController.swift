@@ -53,9 +53,6 @@ class VenueListViewController: UIViewController {
         venueListTableView.rowHeight = 97.5
         
     }
-    @objc func dismissView() {
-        dismiss(animated: true, completion: nil)
-    }
     
     private func constrainTableView() {
         view.addSubview(venueListTableView)
@@ -73,6 +70,9 @@ class VenueListViewController: UIViewController {
         }
         
         navigationItem.title = self.navTitle
+    }
+    @objc func dismissView() {
+        dismiss(animated: true, completion: nil)        
     }
     
 }

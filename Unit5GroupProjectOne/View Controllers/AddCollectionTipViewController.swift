@@ -16,9 +16,13 @@ class AddCollectionTipViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainView()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveCollection))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveCollection))
     }
+    @objc private func dismissView() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc private func saveCollection() {
         guard let text = addTipView.venueTipTextField.text else {return}
         FileManagerHelper.manager.addNewCollection([venue], withCollectionName: text)
@@ -28,7 +32,7 @@ class AddCollectionTipViewController: UIViewController {
         view.addSubview(addTipView)
         
         addTipView.snp.makeConstraints { (view) in
-            view.edges.equalTo(self.view.safeAreaLayoutGuide)
+            view.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
 }

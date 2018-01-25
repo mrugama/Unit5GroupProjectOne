@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 //Message by Melissa: the table view cell that will be used to display the search results and also the list of collected venues (like in your collections tab, you see all your saved collections. and then when you tap a collection view cell, it should segue to a table view of the venues you saved for that collection)
 
@@ -64,6 +65,22 @@ class VenueTableViewCell: UITableViewCell {
         
     }
     
+    public func configureCell(venue: Venue) {
+        self.categoryName.text = venue.categories.map{$0.shortName}.joined(separator: " ,")
+        self.venueName.text = venue.name
+        self.venueImage.kf.indicatorType = .activity
+        PhotoAPIClient.manager.getPhotos(venue: venue.id) { (photo) in
+            if let photo = photo?.first {
+                let urlStr = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
+                if let photoURL = URL(string: urlStr) {
+                    self.venueImage.kf.setImage(with: photoURL, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                        self.setNeedsLayout()
+                    })
+                    
+                }
+            }
+        }
+    }
 
     //maybe can be used for animations?? - who knows?? - to do for later
 //    override func setSelected(_ selected: Bool, animated: Bool) {

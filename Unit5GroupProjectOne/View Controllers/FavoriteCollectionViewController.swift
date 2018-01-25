@@ -69,7 +69,11 @@ extension FavoriteCollectionViewController: UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let collectionList = VenueListViewController()// pass in collection and collectionNames
+        
+        let currentCollection = collections[indexPath.row]
+        let currentCollectionTitle = collectionNames[indexPath.row]
+        
+        let collectionList = VenueListViewController.init(navTitle: currentCollectionTitle, savedVenues: currentCollection)// pass in collection and collectionNames
         //TODO: .init to pass objects
         let cell = collectionView.cellForItem(at: indexPath)
         

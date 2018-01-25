@@ -13,7 +13,7 @@ import Kingfisher
 //Message by Melissa: this is the view that the users will see after tapping the "+" bar button item in the venue detail view to add the venue to their collections or create a new collection with that venue
     //could also be what they see if they're in the collections tab; in the venue detail view, instead of seeing the "+" sign, they should see the "edit" sign so they can edit their tips!
 
-class VenueTipsView: UIView {
+class AddCollectionTipView: UIView {
     
     //to do:
         //should have a collection view at the bottom, and some stuff at the top
@@ -32,18 +32,27 @@ class VenueTipsView: UIView {
     }()
     
     lazy var venueTipTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Leave a tip"
-        textField.backgroundColor = .lightGray
-        textField.textAlignment = .center
-        return textField
+        let tf = UITextField()
+        tf.placeholder = "Enter a name for your collection"
+        tf.autocorrectionType = .no
+        tf.textAlignment = .center
+        tf.borderStyle = .roundedRect
+        tf.layer.shadowColor = UIColor.black.cgColor
+        tf.layer.shadowOpacity = 1
+        tf.layer.shadowOffset = CGSize.zero
+        tf.layer.shadowRadius = 10
+        return tf
     }()
     
-    lazy var venuwTipLabel: UILabel = {
+    lazy var venueTipLabel: UILabel = {
         let label = UILabel()
         label.text = "Please leave a tip"
         label.textAlignment = .center
         return label
+    }()
+    lazy var venueTipTextView: UITextView = {
+        let textView = UITextView()
+        return textView
     }()
     
     override init(frame: CGRect) {
@@ -60,17 +69,28 @@ class VenueTipsView: UIView {
     }
     
     private func setupViews() {
-        addSubview(venueTipCollectionView)
+        let viewObject = [venueTipCollectionView, venueTipTextField, venueTipLabel, venueTipTextView] as [UIView]
+        viewObject.forEach{addSubview($0)}
+        
+        venueTipTextField.snp.makeConstraints { (field) in
+            field.top.leading.equalTo(self).offset(5)
+            field.trailing.equalTo(self).offset(-5)
+            field.height.equalTo(50)
+        }
+        venueTipLabel.snp.makeConstraints { (label) in
+            label.width.equalTo(self.venueTipTextField)
+            label.top.equalTo(self.venueTipTextField.snp.bottom)
+        }
+        venueTipTextView.snp.makeConstraints { (view) in
+            view.width.equalTo(self.venueTipTextField)
+            view.top.equalTo(self.venueTipLabel.snp.bottom)
+            
+        }
         venueTipCollectionView.snp.makeConstraints { (collection) in
-            collection.top.bottom.trailing.leading.equalTo(self)
+            collection.width.equalTo(self.venueTipTextField)
+            collection.top.equalTo(self.venueTipTextView.snp.bottom)
         }
-        addSubview(venueTipTextField)
-        venueTipCollectionView.snp.makeConstraints { (textField) in
-            textField.top.trailing.leading.equalTo(self)
-            //TODO: -  constraints
-        }
-        addSubview(venuwTipLabel)
-         //TODO: -  constraints
+        
     }
     
     

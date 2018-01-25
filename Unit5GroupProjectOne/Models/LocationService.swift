@@ -97,6 +97,19 @@ extension LocationService {
         return CLLocationManager.locationServicesEnabled()
     }
     
+    //Melissa to do - change placeholder
+    public func getCurrentLocation(fromUserCoordinate userCoordinate: CLLocationCoordinate2D) -> String? {
+        var myLocation: String!
+        
+        geocoder.reverseGeocodeLocation(CLLocation.init(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)) { (placeMark, error) in
+            print("\(placeMark?.first?.locality), \(placeMark?.first?.administrativeArea)")
+            myLocation = placeMark?.first?.locality ?? "no text"
+        }
+        
+        return myLocation
+        
+    }
+    
 }
 
 //MARK: - Location Manager Delegate Methods

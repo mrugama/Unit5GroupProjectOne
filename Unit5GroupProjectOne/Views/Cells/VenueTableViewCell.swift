@@ -20,15 +20,15 @@ class VenueTableViewCell: UITableViewCell {
     }()
     lazy var venueName: UILabel = {
         let label = UILabel()
-        label.text = "Restaurant"
         label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.numberOfLines = 0
         return label
     }()
     lazy var categoryName: UILabel = {
         let label = UILabel()
-        label.text = "Thai"
         label.textColor = UIColor(displayP3Red: 0.537, green: 0.537, blue: 0.537, alpha: 1)
         label.font.withSize(15)
+        label.numberOfLines = 0
         return label
     }()
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -54,10 +54,12 @@ class VenueTableViewCell: UITableViewCell {
         venueName.snp.makeConstraints { (label) in
             label.top.equalTo(5)
             label.leading.equalTo(self.venueImage.snp.trailing).offset(5)
+            label.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
         }
         categoryName.snp.makeConstraints { (label) in
             label.top.equalTo(self.venueName.snp.bottom).offset(5)
             label.leading.equalTo(self.venueImage.snp.trailing).offset(5)
+            label.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
         }
         
     }

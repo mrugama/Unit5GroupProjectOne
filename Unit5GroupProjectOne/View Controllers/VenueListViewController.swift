@@ -97,6 +97,26 @@ class VenueListViewController: UIViewController {
     
 }
 extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if savedVenues != nil {
+            return true
+        }
+        
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if savedVenues != nil {
+            let collectionIndex = FileManagerHelper.manager.getCollections().index(where: {$0 == savedVenues!})
+            if editingStyle == .delete {
+                self.savedVenues?.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                FileManagerHelper.manager.removeVenue(atVenueIndex: indexPath.row, fromCollectionIndex: collectionIndex!)
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: Add array count
         if let venues = self.venues {

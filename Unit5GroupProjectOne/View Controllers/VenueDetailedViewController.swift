@@ -58,22 +58,54 @@ extension VenueDetailedViewController {
         
         self.venue = venue
         
-        PhotoAPIClient.manager.getPhotos(venue: venue.id) { (photo) in
-            if let photo = photo?.first {
+        PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: { (photo) in
+            if let photo = photo.first {
                 let photoURL = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
                 var index = 0
                 self.venueDetail.insert(photoURL, at: index)
                 index += 1
                 let category = self.venue.categories.map{$0.shortName}.joined(separator: ", ").replacingOccurrences(of: "/", with: "")
-                self.venueDetail.insert(category, at: index)
+                if category.isEmpty {
+                    self.venueDetail.insert("No Categories Available", at: index)
+                } else {
+                    self.venueDetail.insert(category, at: index)
+                }
                 index += 1
                 if let tip = tip {
                     self.venueDetail.insert(tip, at: index)
                     index += 1
                 }
-//                else {
-//                    self.venueDetail.insert("Add a tip!", at: index)
-//                }
+                //                else {
+                //                    self.venueDetail.insert("Add a tip!", at: index)
+                //                }
+                
+                if let address = venue.location.formattedAddress {
+                    self.venueDetail.insert(address.joined(separator: ", "), at: index)
+                    index += 1
+                } else {
+                    self.venueDetail.insert("No Address Available", at: index)
+                    index += 1
+                }
+            } else {
+                var noPhotoText = "No URL Available"
+                
+                var index = 0
+                self.venueDetail.insert(noPhotoText, at: index)
+                index += 1
+                let category = self.venue.categories.map{$0.shortName}.joined(separator: ", ").replacingOccurrences(of: "/", with: "")
+                if category.isEmpty {
+                    self.venueDetail.insert("No Categories Available", at: index)
+                } else {
+                    self.venueDetail.insert(category, at: index)
+                }
+                index += 1
+                if let tip = tip {
+                    self.venueDetail.insert(tip, at: index)
+                    index += 1
+                }
+                //                else {
+                //                    self.venueDetail.insert("Add a tip!", at: index)
+                //                }
                 
                 if let address = venue.location.formattedAddress {
                     self.venueDetail.insert(address.joined(separator: ", "), at: index)
@@ -83,8 +115,35 @@ extension VenueDetailedViewController {
                     index += 1
                 }
             }
-        }
-        
+        }, errorHandler: { (_) in
+            var noPhotoText = "No URL Available"
+            
+            var index = 0
+            self.venueDetail.insert(noPhotoText, at: index)
+            index += 1
+            let category = self.venue.categories.map{$0.shortName}.joined(separator: ", ").replacingOccurrences(of: "/", with: "")
+            if category.isEmpty {
+                self.venueDetail.insert("No Categories Available", at: index)
+            } else {
+                self.venueDetail.insert(category, at: index)
+            }
+            index += 1
+            if let tip = tip {
+                self.venueDetail.insert(tip, at: index)
+                index += 1
+            }
+            //                else {
+            //                    self.venueDetail.insert("Add a tip!", at: index)
+            //                }
+            
+            if let address = venue.location.formattedAddress {
+                self.venueDetail.insert(address.joined(separator: ", "), at: index)
+                index += 1
+            } else {
+                self.venueDetail.insert("No Address Available", at: index)
+                index += 1
+            }
+        })
     }
 }
 
@@ -123,6 +182,8 @@ extension VenueDetailedViewController: UITableViewDataSource {
                             self.venueImage = #imageLiteral(resourceName: "placeholder")
                         }
                     })
+                } else {
+                    cell.venueImage.image = #imageLiteral(resourceName: "placeholder")
                 }
             } else {
                 cell.detailDescriptionLabel.text = venue

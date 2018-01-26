@@ -69,8 +69,8 @@ class VenueTableViewCell: UITableViewCell {
         self.venueName.text = venue.name
         self.venueImage.image = nil
         self.venueImage.kf.indicatorType = .activity
-        PhotoAPIClient.manager.getPhotos(venue: venue.id) { (photo) in
-            if let photo = photo?.first {
+        PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: { (photo) in
+            if let photo = photo.first {
                 let urlStr = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
                 if let photoURL = URL(string: urlStr) {
                     self.venueImage.kf.setImage(with: photoURL, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
@@ -79,14 +79,9 @@ class VenueTableViewCell: UITableViewCell {
                     
                 }
             }
-        }
+        }, errorHandler: { (_) in
+            self.venueImage.image = #imageLiteral(resourceName: "placeholder")
+        })
     }
-
-    //maybe can be used for animations?? - who knows?? - to do for later
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
 
 }

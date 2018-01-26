@@ -45,8 +45,8 @@ class SearchCollectionViewCell: UICollectionViewCell {
 
     public func configureCell(withVenue venue: Venue) {
         //TODO: Marlon - Fix flicking problem
-        PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: {(photo) in
-            if let photo = photo?.first {
+        PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: { (photo) in
+            if let photo = photo.first {
                 let urlPhoto = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
                 if let url = URL(string: urlPhoto) {
                     self.searchCellImage.kf.indicatorType = .activity
@@ -55,9 +55,8 @@ class SearchCollectionViewCell: UICollectionViewCell {
                     })
                 }
             }
+        }, errorHandler: { (_) in
+            self.searchCellImage.image = #imageLiteral(resourceName: "placeholder")
         })
-        //TODO: set up image with photo api client - which should probably return
-        
     }
-    
 }

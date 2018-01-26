@@ -66,9 +66,11 @@ class VenueListViewController: UIViewController {
 //        let venueNavigation = UINavigationController(rootViewController: VenueDetailedViewController())
         
         if venues != nil {
+            
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissView))
+            
         }
-        
+        navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
         navigationItem.title = self.navTitle
     }
     @objc func dismissView() {

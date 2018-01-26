@@ -45,7 +45,6 @@ class SearchCollectionViewCell: UICollectionViewCell {
 
     public func configureCell(withVenue venue: Venue) {
         //TODO: Marlon - Fix flicking problem
-        searchCellImage.image = nil
         PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: {(photo) in
             if let photo = photo?.first {
                 let urlPhoto = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"

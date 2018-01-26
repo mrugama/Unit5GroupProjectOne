@@ -40,6 +40,8 @@ class SearchViewController: UIViewController {
         }
     }
     
+    var selectedIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +49,8 @@ class SearchViewController: UIViewController {
         configureNavBar()
         delegateAndDataSource()
         setUpLocationServices()
-        
+        let textFieldInsideSearchBar = searchView.locationSearchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor(displayP3Red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
         definesPresentationContext = true 
     }
     
@@ -55,6 +58,8 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         
         let _ = LocationService.manager.checkAuthorizationStatusAndLocationServices()
+        
+        
     }
 }
 
@@ -68,6 +73,7 @@ extension SearchViewController {
         venueSearchBarController.searchBar.delegate = self
         navigationItem.searchController = venueSearchBarController
         navigationItem.searchController?.dimsBackgroundDuringPresentation = false
+        navigationItem.searchController?.searchBar.tintColor = UIColor(displayP3Red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
         navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController?.isActive = true
         navigationItem.searchController?.searchBar.placeholder = "Search for a venue"
@@ -177,7 +183,6 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         let numberOfSpaces: CGFloat = numberOfCells + 1
         let width = (collectionView.bounds.width - (numberOfSpaces * cellSpacing)) / numberOfCells
         let height = width
-        
         return CGSize(width: width, height: height)
     }
     
@@ -199,13 +204,15 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedAnnotation = annotations[indexPath.row]
+        let cell = collectionView.cellForItem(at: indexPath)
         let center = CLLocationCoordinate2D(latitude: selectedAnnotation.coordinate.latitude, longitude: selectedAnnotation.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: center, span: span)
         searchView.mapView.setRegion(region, animated: true)
         searchView.mapView.selectAnnotation(selectedAnnotation, animated: true)
-        
-        //TODO: Nathan - add animation for this cell!!
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {
+            cell?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9) }, completion: { finished in
+                UIView.animate(withDuration: 0.06, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: .curveEaseIn, animations: { cell?.transform = CGAffineTransform(scaleX: 1, y: 1) }, completion: nil )})
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

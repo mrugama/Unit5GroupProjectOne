@@ -25,13 +25,23 @@ extension SearchViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("tapped accessory!!!")
         let detailVC = VenueDetailedViewController()
+        detailVC.configureView(venue: venues[selectedIndex], tip: nil)
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
     ///TODO: Finish
-//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//        <#code#>
-//    }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        guard let selectedAnnotation = view.annotation else {return}
+        guard let annotationIndex = annotations.index(where: { (annotation) -> Bool in
+            (annotation.coordinate.latitude == selectedAnnotation.coordinate.latitude &&
+                annotation.coordinate.longitude == selectedAnnotation.coordinate.longitude)
+        }) else {return}
+        
+        selectedIndex = annotationIndex
+        searchView.venueCollectionView.scrollToItem(at: IndexPath.init(row: annotationIndex, section: 0), at: .centeredHorizontally, animated: true)
+        
+    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         //returns the view for each annotation - the bubble thing that pops up
@@ -55,10 +65,10 @@ extension SearchViewController: MKMapViewDelegate {
         annotationView?.markerTintColor = UIColor.purple
         
         //TODO: NATE DO SHADOWS!!
-        annotationView?.layer.shadowOpacity = 1
-        annotationView?.layer.shadowColor = UIColor(displayP3Red: 0.67, green: 0.07, blue: 0.50, alpha: 1).cgColor
+        annotationView?.layer.shadowOpacity = 0.7
+        annotationView?.layer.shadowColor = UIColor(displayP3Red: 0.67, green: 0.07, blue: 0.50, alpha: 0.8).cgColor
                 annotationView?.layer.shadowOffset = CGSize.zero
-                annotationView?.layer.shadowRadius = 10
+                annotationView?.layer.shadowRadius = 7
         
         annotationView?.displayPriority = .required
         

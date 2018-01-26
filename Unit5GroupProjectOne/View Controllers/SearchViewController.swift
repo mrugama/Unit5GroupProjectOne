@@ -72,6 +72,9 @@ extension SearchViewController {
         navigationItem.searchController?.isActive = true
         navigationItem.searchController?.searchBar.placeholder = "Search for a venue"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "tableview icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(venueListButton))
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
+            //UIColor(red: 0.820, green: 0.656, blue: 0.545, alpha: 1) //dark orange
+            //UIColor(red: 0.975, green: 0.868, blue: 0.775, alpha: 1) //light orange
     }
     
     @objc private func venueListButton() {
@@ -94,7 +97,7 @@ extension SearchViewController {
     
      private func constrainView() {
         view.addSubview(searchView)
-        searchView.backgroundColor = .cyan
+        searchView.backgroundColor = .gray
         searchView.snp.makeConstraints { (view) in
             view.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
@@ -159,7 +162,7 @@ extension SearchViewController {
         }, errorHandler: { (error) in
             
             //TODO: Present the alert
-            let alertController = self.createAlertController(withTitle: "Error", andMessage: "An error occurred:\n\(error)")
+            let alertController = self.createAlertController(withTitle: "Error", andMessage: "An error occurred:\nRate Limit has been exceeded.\n\(error)")
             self.present(alertController, animated: true, completion: nil)
             
         })

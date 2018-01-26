@@ -31,6 +31,7 @@ class FavoriteCollectionViewController: UIViewController {
         constraints()
         navigationItem.title = "My Collection"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createCollection))
+        navigationController?.navigationBar.tintColor = UIColor(red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

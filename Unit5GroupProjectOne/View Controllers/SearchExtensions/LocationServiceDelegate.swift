@@ -41,14 +41,18 @@ extension SearchViewController: LocationServiceDelegate {
     
     func userLocationUpdatedToLocation(_ location: CLLocation) {
         let userCoordinates = searchView.mapView.userLocation.coordinate
-        let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        searchView.mapView.showsUserLocation = true
-        let userRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), span: mapSpan)
-        searchView.mapView.setRegion(userRegion, animated: true)
-        //TODO: set the place holder everytime the current location changes!! - use the geocoder to find the actual place!
         
-        let currentLocation = LocationService.manager.getCurrentLocation(fromUserCoordinate: self.searchView.mapView.userLocation.coordinate)
+        if numberOfLaunches == 0 {
+            let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            searchView.mapView.showsUserLocation = true
+            let userRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude), span: mapSpan)
+            searchView.mapView.setRegion(userRegion, animated: true)
+            numberOfLaunches += 1
+        }
         
+        LocationService.manager.getCurrentLocation(fromUserCoordinate: userCoordinates, completionHandler: {(currentLocation) in
+            self.searchView.locationSearchBar.placeholder = currentLocation
+        })
     }
     
 }

@@ -11,13 +11,15 @@ import MapKit
 
 class SearchViewController: UIViewController {
     
-     let cellSpacing: CGFloat = UIScreen.main.bounds.width * 0.02
+    var numberOfLaunches: Int = 0
     
-     let searchView = SearchView()
+    let cellSpacing: CGFloat = UIScreen.main.bounds.width * 0.02
     
-     lazy var venueSearchBarController = UISearchController(searchResultsController: nil)
+    let searchView = SearchView()
     
-     var venues: [Venue] = [] {
+    lazy var venueSearchBarController = UISearchController(searchResultsController: nil)
+    
+    var venues: [Venue] = [] {
         didSet {
             searchView.venueCollectionView.reloadData()
             var annotations: [MKAnnotation] = []
@@ -33,7 +35,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-     var annotations: [MKAnnotation] = [] {
+    var annotations: [MKAnnotation] = [] {
         didSet {
             searchView.mapView.addAnnotations(annotations)
             searchView.mapView.showAnnotations(annotations, animated: true)

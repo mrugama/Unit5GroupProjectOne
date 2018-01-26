@@ -98,16 +98,29 @@ extension LocationService {
     }
     
     //Melissa to do - change placeholder
-    public func getCurrentLocation(fromUserCoordinate userCoordinate: CLLocationCoordinate2D) -> String? {
-        var myLocation: String!
+    public func getCurrentLocation(fromUserCoordinate userCoordinate: CLLocationCoordinate2D, completionHandler: @escaping (String) -> Void) {
         
         geocoder.reverseGeocodeLocation(CLLocation.init(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)) { (placeMark, error) in
             print("\(placeMark?.first?.locality), \(placeMark?.first?.administrativeArea)")
-            myLocation = placeMark?.first?.locality ?? "no text"
+            
+            var location: String!
+            
+            if let placeMark = placeMark?.first {
+                if let city = placeMark.locality {
+                    location = city
+                }
+                if let state = placeMark.administrativeArea {
+                    if let city = location {
+                        completionHandler("\(city), \(state)")
+                    } else {
+                        completionHandler(state)
+                    }
+                }
+            }
+            if location == nil {
+                completionHandler("Current Location")
+            }
         }
-        
-        return myLocation
-        
     }
     
 }

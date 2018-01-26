@@ -25,7 +25,7 @@ extension SearchViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("tapped accessory!!!")
         let detailVC = VenueDetailedViewController()
-        detailVC.configureView(venue: venues[selectedIndex], tip: nil)
+        detailVC.configureView(venue: venues[selectedIndex], tip: nil, saved: false)
         navigationController?.pushViewController(detailVC, animated: true)
     }
     

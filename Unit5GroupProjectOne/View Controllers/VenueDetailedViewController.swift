@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import CoreLocation
 
 //Message by Melissa: This is the view controller that displays the detailed view
 
@@ -32,12 +33,22 @@ class VenueDetailedViewController: UIViewController {
         //detailView.VenueDetailTableView.rowHeight = 50
     }
     
-    @objc private func AddButtonPressed() {
-        let addTipVC = AddCollectionTipViewController(venue: self.venue, VC: self, venueImage: self.venueImage)
+    @objc private func addButtonPressed() {
+        if let venue = self.venue, let venueImage = self.venueImage {
+            let addTipVC = AddCollectionTipViewController(venue: venue, VC: self, venueImage: venueImage)
+            let navVC = UINavigationController(rootViewController: addTipVC)
+            navigationController?.present(navVC, animated: true, completion: nil)
+        } else {
+            let alertController = UIAlertController(title: "Error", message: "This venue did not have any data. Please checking network connectivity, and search again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    //TODO: if time, for extra credit
+    @objc private func editButtonPressed() {
         
-        let navVC = UINavigationController(rootViewController: addTipVC)
-        
-        navigationController?.present(navVC, animated: true, completion: nil)
     }
     
     private func constrainView() {
@@ -51,10 +62,14 @@ class VenueDetailedViewController: UIViewController {
 }
 
 extension VenueDetailedViewController {
+    
     public func configureView(venue: Venue, tip: String?, saved: Bool) {
         
         if !saved {
-            navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(AddButtonPressed))
+            navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+        } else {
+            //TODO: if time, for extra credit
+//            navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
         }
         
         self.venue = venue
@@ -149,7 +164,30 @@ extension VenueDetailedViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: open maps
+        if indexPath.row == venueDetail.count - 1 {
+            var urlString: String!
+            
+            //can use user location
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                if let latitude = UserPreferences.manager.getUserCoordinate().latitude, let longitude = UserPreferences.manager.getUserCoordinate().longitude {
+                    urlString = "http://maps.apple.com/maps?saddr=\(latitude),\(longitude)&daddr=\(venue.location.lat),\(venue.location.lng)"
+                    print("got user location")
+                }
+            } else { //can't use user location
+                if let latitude = UserPreferences.manager.getSearchCoordinates().latitude, let longitude = UserPreferences.manager.getSearchCoordinates().longitude {
+                    print("got search location")
+                    urlString = "http://maps.apple.com/maps?saddr=\(latitude),\(longitude)&daddr=\(venue.location.lat),\(venue.location.lng)"
+                }
+            }
+            
+            if let url = URL(string: urlString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else { //only present the location, not directions
+                let singleLocation = "http://maps.apple.com/maps?saddr=\(venue.location.lat),\(venue.location.lng)"
+                UIApplication.shared.open(URL(string: singleLocation)!, options: [:], completionHandler: nil)
+                print("got single location")
+            }
+        }
     }
 }
 
@@ -183,6 +221,7 @@ extension VenueDetailedViewController: UITableViewDataSource {
                     }
                 } else {
                     cell.venueImage.image = #imageLiteral(resourceName: "placeholder")
+                    self.venueImage = #imageLiteral(resourceName: "placeholder")
                 }
             } else {
                 cell.detailDescriptionLabel.text = venue

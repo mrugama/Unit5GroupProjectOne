@@ -152,6 +152,7 @@ class FileManagerHelper {
         self.collectionNames[index] = newName
         print("update collection name!!")
     }
+    //TODO: should be able to update tip!!! - need to create new view controller
     //remove - extra credit
     public func removeCollection(atIndex index: Int) {
         self.collectionNames.remove(at: index)

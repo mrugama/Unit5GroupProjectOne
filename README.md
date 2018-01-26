@@ -25,7 +25,7 @@ CocoaPods is a dependency manager for Cocoa projects. You can install it with th
 
 `$ sudo gem install cocoapods`
 
-### Podss
+### Pods
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [SnapKit](http://snapkit.io/docs/)
 - [KingFisher](https://github.com/onevcat/Kingfisher)

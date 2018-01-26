@@ -45,7 +45,8 @@ class VenueDetailedTableViewCell: UITableViewCell {
             image.edges.equalTo(self)
         }
         detailDescriptionLabel.snp.makeConstraints { (label) in
-            label.trailing.leading.centerY.equalTo(self)
+            label.trailing.leading.equalTo(self).inset(8)
+            label.centerY.equalTo(self)
             label.height.equalTo(80)
         }
     }

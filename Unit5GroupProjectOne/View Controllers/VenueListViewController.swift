@@ -88,8 +88,15 @@ extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
         return savedVenues!.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let venueArr = venues else {return UITableViewCell()}
-        let venue = venueArr[indexPath.row]
+        var venue: Venue!
+        
+        if let venueArr = venues {
+            venue = venueArr[indexPath.row]
+        }
+        if let savedVenues = savedVenues {
+            venue = savedVenues[indexPath.row].venue
+        }
+        
         if let cell = tableView.dequeueReusableCell(withIdentifier: "VenueListCell", for: indexPath) as? VenueTableViewCell {
             cell.configureCell(venue: venue)
             cell.setNeedsLayout()
@@ -100,10 +107,22 @@ extension VenueListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = VenueDetailedViewController()
-        let venue = venues![indexPath.row]
-        detailVC.configureView(venue: venue, tip: nil)
+        var venue: Venue!
+        var tip: String!
+        var saved: Bool!
+        if let venues = venues {
+            venue = venues[indexPath.row]
+            saved = false
+        }
+        if let savedVenues = savedVenues {
+            venue = savedVenues[indexPath.row].venue
+            if let tipText = savedVenues[indexPath.row].tip {
+                tip = tipText
+            }
+            saved = true
+        }
+        detailVC.configureView(venue: venue, tip: tip, saved: saved)
         navigationController?.pushViewController(detailVC, animated: true)
-        //TODO: setup segue to detailVC
     }
 }
 

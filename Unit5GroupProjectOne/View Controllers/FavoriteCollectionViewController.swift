@@ -63,7 +63,7 @@ extension FavoriteCollectionViewController: UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCollectionCell", for: indexPath) as! VenueCollectionViewCell
         let currentCollection = collections[indexPath.row]
         let currentCollectionTitle = collectionNames[indexPath.row]
-        cell.configureCell(withCollection: currentCollection, andTitle: currentCollectionTitle)
+        cell.configureCell(withCollection: currentCollection, andTitle: currentCollectionTitle, adding: false)
         let holdGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressed(_:)))
         cell.addGestureRecognizer(holdGesture)
         return cell
@@ -74,8 +74,7 @@ extension FavoriteCollectionViewController: UICollectionViewDelegate, UICollecti
         let currentCollection = collections[indexPath.row]
         let currentCollectionTitle = collectionNames[indexPath.row]
         
-        let collectionList = VenueListViewController.init(navTitle: currentCollectionTitle, savedVenues: currentCollection)// pass in collection and collectionNames
-        //TODO: .init to pass objects
+        let collectionList = VenueListViewController(navTitle: currentCollectionTitle, savedVenues: currentCollection)
         let cell = collectionView.cellForItem(at: indexPath)
         
         UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [], animations: {

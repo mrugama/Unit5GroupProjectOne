@@ -94,7 +94,7 @@ class AddCollectionTipViewController: UIViewController {
             self.addTipView.homeButton.transform = CGAffineTransform(scaleX: 0.95, y: 0.95) }, completion: { finished in
                 UIView.animate(withDuration: 0.06, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: .curveEaseIn, animations: { self.addTipView.homeButton.transform = CGAffineTransform(scaleX: 1, y: 1) }, completion: { (_) in
                     self.dismissView()
-                    self.navigationController?.popToViewController(SearchViewController(), animated: true)
+                    self.navigationController?.pushViewController(SearchViewController(), animated: true)
                     self.previousVC.navigationController?.dismiss(animated: true, completion: nil)
                 } )})
         

@@ -18,7 +18,8 @@ class PhotoAPIClient {
         let date = Date()
         dateFormatted.dateFormat = "yyyyMMdd"
         let strDate = dateFormatted.string(from: date)
-        let params: [String: Any] = ["oauth_token": APIKeys.apiKey,
+        let params: [String: Any] = ["client_id": APIKeys.userId,
+                                     "client_secret": APIKeys.userPwd,
                                      "limit": 10,
                                      "v": strDate]
         Alamofire.request(urlBase, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in

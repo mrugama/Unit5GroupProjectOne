@@ -16,6 +16,8 @@
 		8118F329201BB51E00142AC7 /* save-venue-existing-collection.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8118F328201BB51D00142AC7 /* save-venue-existing-collection.gif */; };
 		8118F32B201BB52900142AC7 /* detail-venue-info-map.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8118F32A201BB52900142AC7 /* detail-venue-info-map.gif */; };
 		8118F32D201BB53100142AC7 /* venue-list.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8118F32C201BB53100142AC7 /* venue-list.gif */; };
+		8118F32F201BB81000142AC7 /* search-location.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8118F32E201BB81000142AC7 /* search-location.gif */; };
+		8118F331201BB86F00142AC7 /* delete-venues-from-collections.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8118F330201BB86F00142AC7 /* delete-venues-from-collections.gif */; };
 		8138AE462012BA9E00FAFEC2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE452012BA9E00FAFEC2 /* SearchView.swift */; };
 		8138AE4A2012CABE00FAFEC2 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE492012CABE00FAFEC2 /* PhotoModel.swift */; };
 		8138AE4C20167D3800FAFEC2 /* CreateFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8138AE4B20167D3800FAFEC2 /* CreateFavoriteViewController.swift */; };
@@ -87,6 +89,8 @@
 		8118F328201BB51D00142AC7 /* save-venue-existing-collection.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "save-venue-existing-collection.gif"; sourceTree = "<group>"; };
 		8118F32A201BB52900142AC7 /* detail-venue-info-map.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "detail-venue-info-map.gif"; sourceTree = "<group>"; };
 		8118F32C201BB53100142AC7 /* venue-list.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "venue-list.gif"; sourceTree = "<group>"; };
+		8118F32E201BB81000142AC7 /* search-location.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "search-location.gif"; sourceTree = "<group>"; };
+		8118F330201BB86F00142AC7 /* delete-venues-from-collections.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "delete-venues-from-collections.gif"; sourceTree = "<group>"; };
 		8138AE452012BA9E00FAFEC2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8138AE492012CABE00FAFEC2 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		8138AE4B20167D3800FAFEC2 /* CreateFavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFavoriteViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 				8118F328201BB51D00142AC7 /* save-venue-existing-collection.gif */,
 				8118F32A201BB52900142AC7 /* detail-venue-info-map.gif */,
 				8118F32C201BB53100142AC7 /* venue-list.gif */,
+				8118F32E201BB81000142AC7 /* search-location.gif */,
+				8118F330201BB86F00142AC7 /* delete-venues-from-collections.gif */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -440,9 +446,11 @@
 				8118F323201BB4B200142AC7 /* allow-location-access.gif in Resources */,
 				8118F32B201BB52900142AC7 /* detail-venue-info-map.gif in Resources */,
 				8118F321201BB4A700142AC7 /* change-collection-name.gif in Resources */,
+				8118F331201BB86F00142AC7 /* delete-venues-from-collections.gif in Resources */,
 				8199C948200E972600D08494 /* LaunchScreen.storyboard in Resources */,
 				8199C945200E972600D08494 /* Assets.xcassets in Resources */,
 				8118F31F201BB43F00142AC7 /* delete-collections.gif in Resources */,
+				8118F32F201BB81000142AC7 /* search-location.gif in Resources */,
 				8118F32D201BB53100142AC7 /* venue-list.gif in Resources */,
 				8118F329201BB51E00142AC7 /* save-venue-existing-collection.gif in Resources */,
 				8149FC2C2011A65F0012F10F /* Mockup.storyboard in Resources */,

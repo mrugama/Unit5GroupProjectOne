@@ -6,23 +6,23 @@ Powered by Foursquare, this app lets you search for venues at different location
 ## Gifs
 |User Allowing Location Access|User Denying Location Access|
 |:-------------:|:------------:|
-|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/allow-location-access.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/deny-location-access.gif" width="358" height="626">|
+|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/allow-location-access.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/deny-location-access.gif" width="358" height="626">|
 
 |Get Venue Info From Map|Get List Of Venues|
 |:-------------:|:------------:|
-|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/detail-venue-info-map.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/venue-list.gif" width="358" height="626">|
+|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/detail-venue-info-map.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/venue-list.gif" width="358" height="626">|
 
 |Save Venue To New Collections with Tip|Save Venue to as Existing Collection with Tip|
 |:-------------:|:------------:|
-|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/save-venue-new-collection.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/save-venue-existing-collection.gif" width="358" height="626">|
+|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/save-venue-new-collection.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/save-venue-existing-collection.gif" width="358" height="626">|
 
 |Change Names of Collections|
 |:-------------:|
-|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/change-collection-name.gif" width="358" height="626">|
+|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/change-collection-name.gif" width="358" height="626">|
 
 |Delete Collections|
 |:-------------:|
-|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/delete-collections.gif" width="358" height="626">|
+|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/delete-collections.gif" width="358" height="626">|
 
 ## Features
 - Can search for venues either in a specific location or at current user location

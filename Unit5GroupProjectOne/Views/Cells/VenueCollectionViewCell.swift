@@ -23,6 +23,9 @@ class VenueCollectionViewCell: UICollectionViewCell {
     lazy var venueName: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.backgroundColor = UIColor(red: 0.67, green: 0.07, blue: 0.50, alpha: 0.90)
+        label.textColor = .white
+        
         return label
     }()
     lazy var plusImage: UIImageView = {
@@ -61,7 +64,12 @@ class VenueCollectionViewCell: UICollectionViewCell {
         
     }
     
-    public func configureCell(withCollection collection: [VenueTipModel], andTitle title: String) {
+    public func configureCell(withCollection collection: [VenueTipModel], andTitle title: String, adding: Bool) {
+        if adding {
+            plusImage.isHidden = false
+        }
+        plusImage.isHidden = true
+        
         if !collection.isEmpty {
             let imageData = collection[0].imageData
             guard let image = UIImage(data: imageData) else {
@@ -69,8 +77,11 @@ class VenueCollectionViewCell: UICollectionViewCell {
                 return
             }
             self.venueCollectionImage.image = image
+        } else {
+            self.venueCollectionImage.image = #imageLiteral(resourceName: "placeholder")
         }
         
         self.venueName.text = title
+        
     }
 }

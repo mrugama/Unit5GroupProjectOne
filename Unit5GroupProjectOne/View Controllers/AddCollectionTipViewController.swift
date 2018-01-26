@@ -13,11 +13,15 @@ class AddCollectionTipViewController: UIViewController {
     let addTipView = AddCollectionTipView()
     var venue: Venue!
     var previousVC: VenueDetailedViewController!
+    var venueImage: UIImage!
+    var savedCollectionNames = FileManagerHelper.manager.getCollectionNames()
+    var savedCollections = FileManagerHelper.manager.getCollections()
     
-    init(venue: Venue, VC: VenueDetailedViewController) {
+    init(venue: Venue, VC: VenueDetailedViewController, venueImage: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.venue = venue
         self.previousVC = VC
+        self.venueImage = venueImage
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +34,14 @@ class AddCollectionTipViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveCollection))
         backHomeButton()
+        self.addTipView.venueTipCollectionView.delegate = self
+        self.addTipView.venueTipCollectionView.dataSource = self
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.addTipView.resignFirstResponder()
+    }
+    
     @objc private func dismissView() {
         dismiss(animated: true, completion: nil)
     }
@@ -41,35 +52,30 @@ class AddCollectionTipViewController: UIViewController {
             self.present(emptyCollectionNameAlert, animated: true, completion: nil)
             return
         }
-        
         var tip: String!
-        
         if let tipText = addTipView.venueTipTextView.text {
             tip = tipText
         }
-        
         //TODO: get the image from dependency injection!!! from the detailed view controller
-        guard let data = UIImagePNGRepresentation(#imageLiteral(resourceName: "placeholder")) else {
+        guard let data = UIImagePNGRepresentation(venueImage) else {
             let imageAlert = createAlertController(withTitle: "Error", andMessage: "Could not convert image to data.")
             self.present(imageAlert, animated: true, completion: nil)
             return
         }
-        
         let newVenueTipModel = VenueTipModel(venue: venue, tip: tip, imageData: data)
         
         let saveSuccessful = FileManagerHelper.manager.addNewCollection([newVenueTipModel], withCollectionName: collectionName)
         
         if saveSuccessful {
-            let successAlert = createAlertController(withTitle: "Success", andMessage: "\(venue.name) was saved to your collection \"\(collectionName)\".")
+            let successAlert = UIAlertController(title: "Success", message: "\"\(venue.name)\" was saved to your collection \"\(collectionName)\".", preferredStyle: .alert)
             let actionAlert = UIAlertAction(title: "OK", style: .default, handler: { (_) in
                 self.dismiss(animated: true, completion: nil)
+                self.addTipView.resignFirstResponder()
             })
             successAlert.addAction(actionAlert)
             self.present(successAlert, animated: true, completion: nil)
         } else {
             let errorAlert = createAlertController(withTitle: "Error", andMessage: "\"\(collectionName)\" already exists as a collection name.")
-            let actionAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
-            errorAlert.addAction(actionAlert)
             self.present(errorAlert, animated: true, completion: nil)
         }
     }
@@ -106,4 +112,50 @@ class AddCollectionTipViewController: UIViewController {
         
         return alertController
     }
+}
+
+extension AddCollectionTipViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //should also save and add to existing collection
+        var tip: String!
+        if let tipText = self.addTipView.venueTipTextView.text {
+            tip = tipText
+        }
+        guard let data = UIImagePNGRepresentation(venueImage) else {
+            let imageAlert = createAlertController(withTitle: "Error", andMessage: "Could not convert image to data.")
+            self.present(imageAlert, animated: true, completion: nil)
+            return
+        }
+        let newSavedVenue = VenueTipModel(venue: venue, tip: tip, imageData: data)
+        let saveSuccessful = FileManagerHelper.manager.addVenueToExistingCollection(venue: newSavedVenue, withCollectionIndex: indexPath.row)
+        
+        let collectionName = savedCollectionNames[indexPath.row]
+        
+        if saveSuccessful {
+            let successAlert = UIAlertController(title: "Success", message: "\"\(venue.name)\" was saved to your collection \"\(collectionName)\".", preferredStyle: .alert)
+            let actionAlert = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                self.dismiss(animated: true, completion: nil)
+                self.addTipView.resignFirstResponder()
+            })
+        } else {
+            let errorAlert = createAlertController(withTitle: "Error", andMessage: "\"\(collectionName)\" already has the venue \"\(venue.name)\".")
+            self.present(errorAlert, animated: true, completion: nil)
+        }
+    }
+}
+
+extension AddCollectionTipViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return savedCollections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCollectionTipCell", for: indexPath) as! VenueCollectionViewCell
+        
+        //TODO: Nate - set up the cell here - adding should be yes
+        
+        return cell
+    }
+    
+    
 }

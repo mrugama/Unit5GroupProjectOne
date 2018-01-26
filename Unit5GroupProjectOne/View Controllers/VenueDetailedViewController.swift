@@ -20,18 +20,19 @@ class VenueDetailedViewController: UIViewController {
     }
     
     var venue: Venue!
+    var venueImage: UIImage!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainView()
         detailView.VenueDetailTableView.dataSource = self
         detailView.VenueDetailTableView.delegate = self
+        navigationItem.title = venue.name
         //detailView.VenueDetailTableView.rowHeight = 50
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(AddButtonPressed))
     }
     
     @objc private func AddButtonPressed() {
-        let addTipVC = AddCollectionTipViewController(venue: self.venue, VC: self)
+        let addTipVC = AddCollectionTipViewController(venue: self.venue, VC: self, venueImage: self.venueImage)
         
         let navVC = UINavigationController(rootViewController: addTipVC)
         
@@ -49,7 +50,12 @@ class VenueDetailedViewController: UIViewController {
 }
 
 extension VenueDetailedViewController {
-    public func configureView(venue: Venue, tip: String?) {
+    public func configureView(venue: Venue, tip: String?, saved: Bool) {
+        
+        if !saved {
+            navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(AddButtonPressed))
+        }
+        
         self.venue = venue
         
         PhotoAPIClient.manager.getPhotos(venue: venue.id) { (photo) in
@@ -111,6 +117,11 @@ extension VenueDetailedViewController: UITableViewDataSource {
                     cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
                         cell.layoutIfNeeded()
                         cell.detailDescriptionLabel.text = nil
+                        if let image = image {
+                            self.venueImage = image
+                        } else {
+                            self.venueImage = #imageLiteral(resourceName: "placeholder")
+                        }
                     })
                 }
             } else {

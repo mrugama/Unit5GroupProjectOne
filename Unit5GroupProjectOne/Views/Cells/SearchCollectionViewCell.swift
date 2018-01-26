@@ -44,14 +44,25 @@ class SearchCollectionViewCell: UICollectionViewCell {
         //maybe add a "configure cell" function here that takes in some parameter and sets up the property for you, instead of having to do all that in the cellForItemAt datasource method in the view controller (to avoid cluttering the view controller, and having a cell that is more reusable)
 
     public func configureCell(withVenue venue: Venue) {
-        //TODO: Marlon - Fix flicking problem
+        ImageCache.default.retrieveImage(forKey: venue.id, options: nil){(image, cache) in
+            if let image = image {
+                self.searchCellImage.image = image
+                return
+            } else {
+                self.searchCellImage.image = #imageLiteral(resourceName: "placeholder")
+            }
+        }
+        
         PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: { (photo) in
             if let photo = photo.first {
                 let urlPhoto = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
                 if let url = URL(string: urlPhoto) {
                     self.searchCellImage.kf.indicatorType = .activity
                     self.searchCellImage.kf.setImage(with: url, placeholder: UIImage.init(named: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-                        
+                    
+                        if let image = image {
+                        ImageCache.default.store(image, forKey: venue.id) //store image with venue id
+                        }
                     })
                 }
             }

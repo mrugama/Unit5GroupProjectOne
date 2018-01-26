@@ -158,5 +158,8 @@ class FileManagerHelper {
         self.collections.remove(at: index)
         print("removed collection!!")
     }
+    public func removeVenue(_ venue: Venue, fromCollectionIndex index: Int) {
+        
+    }
 }
 

@@ -39,7 +39,7 @@ class FavoriteCollectionViewController: UIViewController {
         collections = FileManagerHelper.manager.getCollections()
     }
     @objc private func createCollection() {
-        let modalVC = CreateFavoriteViewController() //to do: the initializer for this view controller should take in the current results (the data source variable) and pass them to this view controller, so it has a datasource variable for its own table view
+        let modalVC = CreateFavoriteViewController()
         let navController = UINavigationController(rootViewController: modalVC)
         modalVC.view.backgroundColor = .white
         self.present(navController, animated: true, completion: nil)
@@ -91,7 +91,12 @@ extension FavoriteCollectionViewController: UICollectionViewDelegate, UICollecti
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
             print("Deleted")
-            //TODO: deleteFiles from FileManager
+
+            FileManagerHelper.manager.removeCollection(atIndex: index)
+            
+            self.collections = FileManagerHelper.manager.getCollections()
+            self.collectionNames = FileManagerHelper.manager.getCollectionNames()
+            
             self.favoriteView.venueCollectionView.reloadData()
         }))
         //TODO: Edit label to rename
@@ -112,9 +117,28 @@ extension FavoriteCollectionViewController: UICollectionViewDelegate, UICollecti
         }
         
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (_) in
-            let editedName = alert.textFields![0].text
+            let oldName = self.collectionNames[self.selectedCellIndex]
             let currentIndex = self.selectedCellIndex
-            //TODO: edit name in Filemanager
+            
+            guard let editedName = alert.textFields![0].text, !editedName.isEmpty else {
+                let alertController = UIAlertController(title: "Error", message: "You must give the collection a name.", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(alertAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+            
+            FileManagerHelper.manager.updateCollectionName(atIndex: currentIndex, withName: editedName)
+            
+            let alertController = UIAlertController(title: "Success", message: "\"\(oldName)\" was changed to \"\(editedName)\"", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: {(_) in
+                self.collectionNames = FileManagerHelper.manager.getCollectionNames()
+                self.collections = FileManagerHelper.manager.getCollections()
+                self.favoriteView.venueCollectionView.reloadData()
+            })
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)

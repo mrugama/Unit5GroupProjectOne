@@ -99,7 +99,6 @@ extension FavoriteCollectionViewController: UICollectionViewDelegate, UICollecti
             
             self.favoriteView.venueCollectionView.reloadData()
         }))
-        //TODO: Edit label to rename
         alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { (_) in
             print("Edited")
             self.editAlert()
@@ -131,12 +130,12 @@ extension FavoriteCollectionViewController: UICollectionViewDelegate, UICollecti
             
             FileManagerHelper.manager.updateCollectionName(atIndex: currentIndex, withName: editedName)
             
+            self.collectionNames = FileManagerHelper.manager.getCollectionNames()
+            self.collections = FileManagerHelper.manager.getCollections()
+            self.favoriteView.venueCollectionView.reloadData()
+            
             let alertController = UIAlertController(title: "Success", message: "\"\(oldName)\" was changed to \"\(editedName)\"", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: {(_) in
-                self.collectionNames = FileManagerHelper.manager.getCollectionNames()
-                self.collections = FileManagerHelper.manager.getCollections()
-                self.favoriteView.venueCollectionView.reloadData()
-            })
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             self.present(alertController, animated: true, completion: nil)
         }))

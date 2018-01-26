@@ -33,11 +33,16 @@ class VenueDetailedViewController: UIViewController {
     }
     
     @objc private func AddButtonPressed() {
-        let addTipVC = AddCollectionTipViewController(venue: self.venue, VC: self, venueImage: self.venueImage)
-        
-        let navVC = UINavigationController(rootViewController: addTipVC)
-        
-        navigationController?.present(navVC, animated: true, completion: nil)
+        if let venue = self.venue, let venueImage = self.venueImage {
+            let addTipVC = AddCollectionTipViewController(venue: self.venue, VC: self, venueImage: self.venueImage)
+            let navVC = UINavigationController(rootViewController: addTipVC)
+            navigationController?.present(navVC, animated: true, completion: nil)
+        } else {
+            let alertController = UIAlertController(title: "Error", message: "This venue did not have any data. Please checking network connectivity, and search again.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     private func constrainView() {

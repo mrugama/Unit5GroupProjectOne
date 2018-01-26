@@ -112,8 +112,10 @@ extension LocationService {
                 if let state = placeMark.administrativeArea {
                     if let city = location {
                         completionHandler("\(city), \(state)")
+                        return
                     } else {
                         completionHandler(state)
+                        return
                     }
                 }
             }
@@ -127,13 +129,10 @@ extension LocationService {
 
 //MARK: - Location Manager Delegate Methods
 //i'm not making the view controller conform to this delegate because there's some functions here that should be handled in the model, not the view controller; i'll make a separate custom delegate that can pass information from these delegate methods
-//TODO: get rid of the delegate lol
 
 extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        //to do - should probably have a custom delegate that gets called and presents an alert in the view controller saying that there was an error, could not get current location?
-        
         delegate?.userLocationUpdateFailed(withError: error)
     }
     
@@ -145,17 +144,13 @@ extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first
-        
-        print(location)
-        
         if let location = location {
         
             delegate?.userLocationUpdatedToLocation(location)
         
+            UserPreferences.manager.saveUserCoordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         }
-        //to do:
-            //set up user preferences
-            //save the location in user preferences as the last known current location
+
     }
     
 }

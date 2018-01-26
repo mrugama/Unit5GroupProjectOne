@@ -28,7 +28,8 @@ class VenueAPIClient {
         let params: [String: Any] = ["ll": "\(latitute),\(longitude)",
             "query": searchTerm,
             "limit": 20,
-            "oauth_token": APIKeys.apiKey,
+            "client_id": APIKeys.userId,
+            "client_secret": APIKeys.userPwd,
             "v": strDate]
         
         Alamofire.request(urlBase, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in

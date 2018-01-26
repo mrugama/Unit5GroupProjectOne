@@ -52,6 +52,7 @@ extension SearchViewController: LocationServiceDelegate {
         
         LocationService.manager.getCurrentLocation(fromUserCoordinate: userCoordinates, completionHandler: {(currentLocation) in
             self.searchView.locationSearchBar.placeholder = currentLocation
+            self.searchView.locationSearchBar.layoutIfNeeded()
         })
     }
     

@@ -112,8 +112,10 @@ extension LocationService {
                 if let state = placeMark.administrativeArea {
                     if let city = location {
                         completionHandler("\(city), \(state)")
+                        return
                     } else {
                         completionHandler(state)
+                        return
                     }
                 }
             }

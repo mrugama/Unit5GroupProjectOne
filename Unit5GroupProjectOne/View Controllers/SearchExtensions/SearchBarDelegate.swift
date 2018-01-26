@@ -7,19 +7,18 @@
 //
 import UIKit
 
-//TODO: Finish Search Bar Delegate
-//tapping search should get the list of venues, and changing the list of venues
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        //probably should set up user preferences to save last search and last location (lol)
-        
+    
         guard
             let venueSearchText = venueSearchBarController.searchBar.text,
             !venueSearchText.isEmpty,
             let formattedVenueSearchText = venueSearchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
             else {
+                
+                let noVenuesAlert = createAlertController(withTitle: "No Search Term", andMessage: "Please enter a valid search term before searching.")
+                self.present(noVenuesAlert, animated: true, completion: nil)
                 
                 return
         }
@@ -34,18 +33,13 @@ extension SearchViewController: UISearchBarDelegate {
                 //if location services is enabled - do search
                 if locationService.locationServicesEnabled && (locationService.authorizationStatus == .authorizedAlways || locationService.authorizationStatus == .authorizedWhenInUse) {
                     //if user location access is allowed
-                    
                     //do search
-                    
                     let userLocation = searchView.mapView.userLocation
-                    
                     getVenues(fromSearchTerm: formattedVenueSearchText, latitude: userLocation.coordinate.latitude, andLongitude: userLocation.coordinate.longitude)
-                    
                 } else {
                     //if location services is not enabled - present alert controller
                     presentSettingsAlertController(withTitle: "Location Services Not Enabled", andMessage: "Please enable Location Services in Settings for better search results.")
                 }
-                
                 return
         }
         
@@ -53,7 +47,6 @@ extension SearchViewController: UISearchBarDelegate {
         LocationService.manager.getLatAndLong(fromLocation: locationSearchText) { (error, coordinate) in
             
             if let error = error {
-                
                 //present alert that says could not get coordinates from user inputted location
                 let alertController = self.createAlertController(withTitle: "Error", andMessage: "Could not get coordinates from user-input location.\n\"\(error.localizedDescription)\"")
                 
@@ -63,15 +56,9 @@ extension SearchViewController: UISearchBarDelegate {
             }
             
             if let coordinate = coordinate {
-                
                 self.getVenues(fromSearchTerm: formattedVenueSearchText, latitude: coordinate.latitude, andLongitude: coordinate.longitude)
-                
             }
-            
         }
-        
         searchBar.resignFirstResponder()
-        
     }
-    
 }

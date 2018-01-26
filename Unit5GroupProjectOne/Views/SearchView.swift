@@ -29,7 +29,6 @@ class SearchView: UIView {
     
     lazy var locationSearchBar: UISearchBar = {
         let searchbar = UISearchBar()
-        searchbar.placeholder = "Queens, NY"
         searchbar.barTintColor = .white
         return searchbar
     }()

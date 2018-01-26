@@ -1,13 +1,17 @@
 # Unit 5 - Homework [Group One]
 
 ## Overview
+Powered by Foursquare, this app lets you search for venues at different locations. This app can also use your current location to give you a list of venues in the area. If you see any venues you'd like to remember and add tips about, you can create a new collection or save them to a new collection.
 
 ## Gifs
+- to do tables!!
 
 ## Features
-- To do: features of the app
-
-
+- Can search for venues either in a specific location or at current user location
+- Can view an image associated with each venue
+- Can save venues to collections and add tips about them
+- Can create new and delete existing collections
+- Can delete venues in existing collections
 
 ## Requirements
 - iOS 8.0+ / Mac OS X 10.11+ / tvOS 9.0+

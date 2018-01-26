@@ -12,7 +12,7 @@ class PhotoAPIClient {
     private init() {}
     static let manager = PhotoAPIClient()
     func getPhotos(venue venueId: String,
-                   completion: @escaping ([Photo]?) -> Void) {
+                   completion: @escaping ([Photo]) -> Void, errorHandler: @escaping (Error) -> Void) {
         let urlBase = "https://api.foursquare.com/v2/venues/\(venueId)/photos"
         let dateFormatted = DateFormatter()
         let date = Date()
@@ -25,6 +25,7 @@ class PhotoAPIClient {
             switch dataResponse.result {
             case .failure(let error):
                 print("Response error: \(error.localizedDescription)")
+                errorHandler(error)
             case .success:
                 if let error = dataResponse.error {
                     print("Network error: \(error.localizedDescription)")

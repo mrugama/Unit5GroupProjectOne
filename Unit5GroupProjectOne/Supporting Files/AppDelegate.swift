@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FileManagerHelper.manager.loadCollections()
         
         let tabBar = TabBarController()
+        UITabBar.appearance().tintColor = UIColor(red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBar

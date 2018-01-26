@@ -168,11 +168,13 @@ extension VenueDetailedViewController: UITableViewDataSource {
                     ImageCache.default.retrieveImage(forKey: self.venue.id, options: nil){(image, cache) in
                         if let image = image {
                             cell.venueImage.image = image
+                            self.venueImage = image
                         } else {
                             cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
                                 cell.layoutIfNeeded()
                                 cell.detailDescriptionLabel.text = nil
                                 if let image = image {
+                                    cell.venueImage.image = image
                                     self.venueImage = image
                                     ImageCache.default.store(image, forKey: self.venue.id)
                                 }

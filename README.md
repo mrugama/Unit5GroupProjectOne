@@ -6,7 +6,7 @@ Powered by Foursquare, this app lets you search for venues at different location
 ## Gifs
 |User Allowing Location Access|User Denying Location Access|
 |:-------------:|:------------:|
-|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/allow-location-access.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/search-location.gif" width="358" height="626">|
+|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/allow-location-access.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/search-location.gif" width="358" height="626">|
 
 |Get Venue Info From Map|Get List Of Venues|
 |:-------------:|:------------:|
@@ -22,7 +22,7 @@ Powered by Foursquare, this app lets you search for venues at different location
 
 |Delete Collections|Delete Venues From Collections|
 |:-------------:|:-------------:|
-|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/delete-collections.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/master/Images/delete-venues-from-collections.gif" width="358" height="626">|
+|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/delete-collections.gif" width="358" height="626">|<img src="https://github.com/NateMRosario/Unit5GroupProjectOne/blob/prod/Images/delete-venues-from-collections.gif" width="358" height="626">|
 
 ## Features
 - Can search for venues either in a specific location or at current user location

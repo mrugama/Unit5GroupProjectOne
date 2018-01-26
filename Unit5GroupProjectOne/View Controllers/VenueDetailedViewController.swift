@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 //Message by Melissa: This is the view controller that displays the detailed view
 
@@ -75,9 +76,6 @@ extension VenueDetailedViewController {
                     self.venueDetail.insert(tip, at: index)
                     index += 1
                 }
-                //                else {
-                //                    self.venueDetail.insert("Add a tip!", at: index)
-                //                }
                 
                 if let address = venue.location.formattedAddress {
                     self.venueDetail.insert(address.joined(separator: ", "), at: index)
@@ -87,7 +85,7 @@ extension VenueDetailedViewController {
                     index += 1
                 }
             } else {
-                var noPhotoText = "No URL Available"
+                let noPhotoText = "No URL Available"
                 
                 var index = 0
                 self.venueDetail.insert(noPhotoText, at: index)
@@ -103,9 +101,6 @@ extension VenueDetailedViewController {
                     self.venueDetail.insert(tip, at: index)
                     index += 1
                 }
-                //                else {
-                //                    self.venueDetail.insert("Add a tip!", at: index)
-                //                }
                 
                 if let address = venue.location.formattedAddress {
                     self.venueDetail.insert(address.joined(separator: ", "), at: index)
@@ -116,7 +111,7 @@ extension VenueDetailedViewController {
                 }
             }
         }, errorHandler: { (_) in
-            var noPhotoText = "No URL Available"
+            let noPhotoText = "No URL Available"
             
             var index = 0
             self.venueDetail.insert(noPhotoText, at: index)
@@ -132,10 +127,7 @@ extension VenueDetailedViewController {
                 self.venueDetail.insert(tip, at: index)
                 index += 1
             }
-            //                else {
-            //                    self.venueDetail.insert("Add a tip!", at: index)
-            //                }
-            
+
             if let address = venue.location.formattedAddress {
                 self.venueDetail.insert(address.joined(separator: ", "), at: index)
                 index += 1
@@ -173,15 +165,20 @@ extension VenueDetailedViewController: UITableViewDataSource {
                 if let urlImage = URL(string: venue) {
                     cell.venueImage.image = nil
                     cell.venueImage.kf.indicatorType = .activity
-                    cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-                        cell.layoutIfNeeded()
-                        cell.detailDescriptionLabel.text = nil
+                    ImageCache.default.retrieveImage(forKey: self.venue.id, options: nil){(image, cache) in
                         if let image = image {
-                            self.venueImage = image
+                            cell.venueImage.image = image
                         } else {
-                            self.venueImage = #imageLiteral(resourceName: "placeholder")
+                            cell.venueImage.kf.setImage(with: urlImage, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                                cell.layoutIfNeeded()
+                                cell.detailDescriptionLabel.text = nil
+                                if let image = image {
+                                    self.venueImage = image
+                                    ImageCache.default.store(image, forKey: self.venue.id)
+                                }
+                            })
                         }
-                    })
+                    }
                 } else {
                     cell.venueImage.image = #imageLiteral(resourceName: "placeholder")
                 }

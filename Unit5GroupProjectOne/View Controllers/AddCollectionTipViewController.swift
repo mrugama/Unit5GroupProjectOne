@@ -36,7 +36,42 @@ class AddCollectionTipViewController: UIViewController {
     }
     
     @objc private func saveCollection() {
-        guard let text = addTipView.venueTipTextField.text else {return}
+        guard let collectionName = addTipView.venueTipTextField.text else {
+            let emptyCollectionNameAlert = createAlertController(withTitle: "Error", andMessage: "You cannot create a collection without a name.")
+            self.present(emptyCollectionNameAlert, animated: true, completion: nil)
+            return
+        }
+        
+        var tip: String!
+        
+        if let tipText = addTipView.venueTipTextView.text {
+            tip = tipText
+        }
+        
+        //TODO: get the image from dependency injection!!! from the detailed view controller
+        guard let data = UIImagePNGRepresentation(#imageLiteral(resourceName: "placeholder")) else {
+            let imageAlert = createAlertController(withTitle: "Error", andMessage: "Could not convert image to data.")
+            self.present(imageAlert, animated: true, completion: nil)
+            return
+        }
+        
+        let newVenueTipModel = VenueTipModel(venue: venue, tip: tip, imageData: data)
+        
+        let saveSuccessful = FileManagerHelper.manager.addNewCollection([newVenueTipModel], withCollectionName: collectionName)
+        
+        if saveSuccessful {
+            let successAlert = createAlertController(withTitle: "Success", andMessage: "\(venue.name) was saved to your collection \"\(collectionName)\".")
+            let actionAlert = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                self.dismiss(animated: true, completion: nil)
+            })
+            successAlert.addAction(actionAlert)
+            self.present(successAlert, animated: true, completion: nil)
+        } else {
+            let errorAlert = createAlertController(withTitle: "Error", andMessage: "\"\(collectionName)\" already exists as a collection name.")
+            let actionAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
+            errorAlert.addAction(actionAlert)
+            self.present(errorAlert, animated: true, completion: nil)
+        }
     }
     
     private func backHomeButton() {
@@ -62,5 +97,13 @@ class AddCollectionTipViewController: UIViewController {
         addTipView.snp.makeConstraints { (view) in
             view.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
         }
+    }
+    
+    private func createAlertController(withTitle title: String?, andMessage message: String?) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        
+        return alertController
     }
 }

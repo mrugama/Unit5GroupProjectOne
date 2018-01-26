@@ -212,6 +212,7 @@ extension VenueDetailedViewController: UITableViewDataSource {
                                 cell.layoutIfNeeded()
                                 cell.detailDescriptionLabel.text = nil
                                 if let image = image {
+                                    cell.venueImage.image = image
                                     self.venueImage = image
                                     ImageCache.default.store(image, forKey: self.venue.id)
                                 }

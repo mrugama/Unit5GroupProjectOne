@@ -71,7 +71,7 @@ class AddCollectionTipView: UIView {
         button.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -45)// top, left, bottom, right
         button.titleEdgeInsets = UIEdgeInsetsMake(0, -30, -30, 0)
         makeCornerRadius(view: button)
-        button.backgroundColor = .purple
+        button.backgroundColor = UIColor(displayP3Red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
         return button
     }()
     

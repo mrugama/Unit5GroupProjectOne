@@ -65,10 +65,9 @@ class VenueCollectionViewCell: UICollectionViewCell {
     }
     
     public func configureCell(withCollection collection: [VenueTipModel], andTitle title: String, adding: Bool) {
-        if adding {
-            plusImage.isHidden = false
+        if !adding {
+            plusImage.isHidden = true
         }
-        plusImage.isHidden = true
         
         if !collection.isEmpty {
             let imageData = collection[0].imageData

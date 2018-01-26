@@ -10,6 +10,8 @@ import UIKit
 
 class AddCollectionTipViewController: UIViewController {
     
+    let cellSpacing: CGFloat = UIScreen.main.bounds.width * 0.025
+    
     let addTipView = AddCollectionTipView()
     var venue: Venue!
     var previousVC: VenueDetailedViewController!
@@ -33,6 +35,8 @@ class AddCollectionTipViewController: UIViewController {
         constrainView()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveCollection))
+        navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 0.67, green: 0.07, blue: 0.50, alpha: 1)
+        navigationController?.navigationBar.backgroundColor = .orange
         backHomeButton()
         self.addTipView.venueTipCollectionView.delegate = self
         self.addTipView.venueTipCollectionView.dataSource = self
@@ -90,7 +94,6 @@ class AddCollectionTipViewController: UIViewController {
             self.addTipView.homeButton.transform = CGAffineTransform(scaleX: 0.95, y: 0.95) }, completion: { finished in
                 UIView.animate(withDuration: 0.06, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: .curveEaseIn, animations: { self.addTipView.homeButton.transform = CGAffineTransform(scaleX: 1, y: 1) }, completion: { (_) in
                     self.dismissView()
-//                    self.navigationController?.popToRootViewController(animated: true)
                     self.navigationController?.popToViewController(SearchViewController(), animated: true)
                     self.previousVC.navigationController?.dismiss(animated: true, completion: nil)
                 } )})
@@ -133,10 +136,12 @@ extension AddCollectionTipViewController: UICollectionViewDelegate {
         
         if saveSuccessful {
             let successAlert = UIAlertController(title: "Success", message: "\"\(venue.name)\" was saved to your collection \"\(collectionName)\".", preferredStyle: .alert)
-            let actionAlert = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
                 self.dismiss(animated: true, completion: nil)
                 self.addTipView.resignFirstResponder()
             })
+            successAlert.addAction(alertAction)
+            self.present(successAlert, animated: true, completion: nil)
         } else {
             let errorAlert = createAlertController(withTitle: "Error", andMessage: "\"\(collectionName)\" already has the venue \"\(venue.name)\".")
             self.present(errorAlert, animated: true, completion: nil)
@@ -151,11 +156,36 @@ extension AddCollectionTipViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCollectionTipCell", for: indexPath) as! VenueCollectionViewCell
+        let currentTitle = savedCollectionNames[indexPath.row]
+        let currentCollection = savedCollections[indexPath.row]
         
-        //TODO: Nate - set up the cell here - adding should be yes
+        cell.configureCell(withCollection: currentCollection, andTitle: currentTitle, adding: true)
+        cell.layoutIfNeeded()
         
         return cell
     }
     
     
+}
+
+extension AddCollectionTipViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfCells: CGFloat = 2
+        let numberOfSpaces: CGFloat = numberOfCells + 1
+        let width = (collectionView.bounds.width - (numberOfSpaces * cellSpacing)) / numberOfCells
+        let height = width
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: cellSpacing, left: cellSpacing, bottom: cellSpacing, right: cellSpacing)
+    }
 }

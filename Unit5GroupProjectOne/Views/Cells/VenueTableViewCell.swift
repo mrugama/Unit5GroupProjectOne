@@ -16,7 +16,6 @@ class VenueTableViewCell: UITableViewCell {
 
     lazy var venueImage: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .cyan
         return image
     }()
     lazy var venueName: UILabel = {
@@ -68,6 +67,7 @@ class VenueTableViewCell: UITableViewCell {
     public func configureCell(venue: Venue) {
         self.categoryName.text = venue.categories.map{$0.shortName}.joined(separator: " ,")
         self.venueName.text = venue.name
+        self.venueImage.image = nil
         self.venueImage.kf.indicatorType = .activity
         PhotoAPIClient.manager.getPhotos(venue: venue.id) { (photo) in
             if let photo = photo?.first {

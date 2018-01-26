@@ -57,6 +57,7 @@ extension SearchViewController: UISearchBarDelegate {
             
             if let coordinate = coordinate {
                 self.getVenues(fromSearchTerm: formattedVenueSearchText, latitude: coordinate.latitude, andLongitude: coordinate.longitude)
+                UserPreferences.manager.saveSearchCoordinates(latitude: coordinate.latitude, longitude: coordinate.longitude)
             }
         }
         searchBar.resignFirstResponder()

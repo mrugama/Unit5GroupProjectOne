@@ -144,13 +144,11 @@ extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first
-        
-//        print(location)
-        
         if let location = location {
         
             delegate?.userLocationUpdatedToLocation(location)
         
+            UserPreferences.manager.saveUserCoordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         }
 
     }

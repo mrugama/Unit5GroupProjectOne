@@ -13,11 +13,6 @@ import SnapKit
 
 class VenueListViewController: UIViewController {
 
-    //TODO: get images
-    
-        //no need for self-sizing cells, so please give a specific height for each row
-        //set up delegate methods
-        //in the did select delegate method, tapping a table view cell should segue to a
     var navTitle: String!
     
     //results
@@ -51,7 +46,28 @@ class VenueListViewController: UIViewController {
         venueListTableView.delegate = self
         configureNavigation()
         venueListTableView.rowHeight = 97.5
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        venueListTableView.reloadData()
+        if let venues = venues {
+            let emptyView = EmptyView(frame: self.view.safeAreaLayoutGuide.layoutFrame)
+            if venues.isEmpty {
+                emptyView.configureView(withText: "No Search Results Available Yet")
+                self.view.addSubview(emptyView)
+            } else {
+                self.view.willRemoveSubview(emptyView)
+            }
+        }
+        if let savedVenues = savedVenues {
+            let emptyView = EmptyView(frame: self.view.safeAreaLayoutGuide.layoutFrame)
+            if savedVenues.isEmpty {
+                emptyView.configureView(withText: "No Saved Venues Yet")
+                self.view.addSubview(emptyView)
+            } else {
+                self.view.willRemoveSubview(emptyView)
+            }
+        }
     }
     
     private func constrainTableView() {
@@ -64,6 +80,8 @@ class VenueListViewController: UIViewController {
     private func configureNavigation() {
         //Melissa: if this view controller is already embedded in a navigation controller, this is not needed, we can just push the venue detailed view on to the navigation stack
 //        let venueNavigation = UINavigationController(rootViewController: VenueDetailedViewController())
+        
+        navigationController?.navigationBar.backgroundColor = .orange
         
         if venues != nil {
             

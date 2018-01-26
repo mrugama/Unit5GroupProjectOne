@@ -69,11 +69,22 @@ class VenueTableViewCell: UITableViewCell {
         self.venueName.text = venue.name
         self.venueImage.image = nil
         self.venueImage.kf.indicatorType = .activity
+        ImageCache.default.retrieveImage(forKey: venue.id, options: nil){(image, cache) in
+            if let image = image {
+                self.venueImage.image = image
+                return
+            } else {
+                self.venueImage.image = #imageLiteral(resourceName: "placeholder")
+            }
+        }
         PhotoAPIClient.manager.getPhotos(venue: venue.id, completion: { (photo) in
             if let photo = photo.first {
                 let urlStr = "\(photo.prefix)\(photo.width)x\(photo.height)\(photo.suffix)"
                 if let photoURL = URL(string: urlStr) {
                     self.venueImage.kf.setImage(with: photoURL, placeholder: UIImage.init(named: "placeholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+                        if let image = image {
+                            ImageCache.default.store(image, forKey: venue.id)
+                        }
                         self.setNeedsLayout()
                     })
                     
